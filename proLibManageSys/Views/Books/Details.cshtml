@@ -1,0 +1,66 @@
+﻿@model proLibManageSys.Models.Books
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Books</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.bookName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bookName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.authorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.authorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serialNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serialNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.branch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.branch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.publications)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.publications)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAvailable)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.bookId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

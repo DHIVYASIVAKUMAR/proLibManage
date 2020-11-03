@@ -1,0 +1,63 @@
+﻿@model IEnumerable<proLibManageSys.Models.Books>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.bookName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.authorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.serialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.branch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.publications)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAvailable)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.bookName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.authorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.serialNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.branch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.publications)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isAvailable)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.bookId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.bookId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.bookId })
+        </td>
+    </tr>
+}
+
+</table>

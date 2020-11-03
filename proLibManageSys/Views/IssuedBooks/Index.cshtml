@@ -1,0 +1,75 @@
+﻿@model IEnumerable<proLibManageSys.Models.IssuedBooks>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.issuedBookName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.issuedAuthorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.issuedBookBranch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.issuedBookPublications)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.issuedStudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.issuedStudentEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fromDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.toDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuedBookName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuedAuthorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuedBookBranch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuedBookPublications)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuedStudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuedStudentEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fromDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.toDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.issuedId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.issuedId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.issuedId })
+        </td>
+    </tr>
+}
+
+</table>

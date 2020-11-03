@@ -1,0 +1,88 @@
+﻿@model proLibManageSys.Models.IssuedBooks
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>IssuedBooks</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.issuedBookName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issuedBookName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.issuedAuthorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issuedAuthorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.issuedBookBranch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issuedBookBranch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.issuedBookPublications)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issuedBookPublications)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.issuedStudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issuedStudentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.issuedStudentEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issuedStudentEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fromDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fromDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.toDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.toDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
