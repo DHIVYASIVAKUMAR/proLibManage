@@ -11,6 +11,7 @@ using proLibManageSys.Models;
 
 namespace proLibManageSys.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class IssuedBooksController : Controller
     {
         private ModelsContext db = new ModelsContext();

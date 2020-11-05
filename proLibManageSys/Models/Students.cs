@@ -51,4 +51,5 @@ namespace proLibManageSys.Models
         [DataType(DataType.Password)]
         public string password { get; set; }
     }
+    
 }
