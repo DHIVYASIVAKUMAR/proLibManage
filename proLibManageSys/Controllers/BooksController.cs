@@ -39,6 +39,14 @@ namespace proLibManageSys.Controllers
         // GET: Books/Create
         public ActionResult Create()
         {
+            var authorList = new List<string>() { "J.K Rowling", "TCRC", "John", "peter", "Jessica", "Moshe cholie" };
+            ViewBag.authorList = authorList;
+
+            var list = new List<string>() { "stories", "Data structure & algorithm", "Web Developement", "programming", "Languages" };
+            ViewBag.list = list;
+            var publicationsList = new List<string>() { "Bloomsbury", "John Wiley", "MIT Press", "IIT Press" };
+            ViewBag.publicationsList = publicationsList;
+            
             return View();
         }
 
@@ -49,6 +57,15 @@ namespace proLibManageSys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "bookId,bookName,authorName,serialNumber,branch,publications,isAvailable")] Books books)
         {
+			var authorList = new List<string>() { "J.K Rowling", "TCRC", "John", "peter", "Jessica", "Moshe cholie" };
+            ViewBag.authorList = authorList;
+            
+            var list = new List<string>() { "stories","Data structure & algorithm","Web Developement","programming","Languages" };
+            ViewBag.list = list;
+            
+            var publicationsList = new List<string>() { "Bloomsbury", "John Wiley", "MIT Press" ,"IIT Press"};
+            ViewBag.publicationsList = publicationsList;
+            
             if (ModelState.IsValid)
             {
                 db.book.Add(books);
@@ -115,6 +132,8 @@ namespace proLibManageSys.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+       
 
         protected override void Dispose(bool disposing)
         {

@@ -202,6 +202,7 @@
     <Content Include="App_Data\aspnet-proLibManageSys-20201103125747_log.ldf">
       <DependentUpon>aspnet-proLibManageSys-20201103125747.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

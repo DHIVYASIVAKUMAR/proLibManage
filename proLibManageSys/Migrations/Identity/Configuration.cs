@@ -1,5 +1,5 @@
 namespace proLibManageSys.Migrations.Identity
-{
+{                  
 	using Microsoft.AspNet.Identity;
 	using Microsoft.AspNet.Identity.EntityFramework;
 	using proLibManageSys.Models;
@@ -9,7 +9,7 @@ namespace proLibManageSys.Migrations.Identity
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<proLibManageSys.Models.ApplicationDbContext>
-    {
+    {                 
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
@@ -22,7 +22,7 @@ namespace proLibManageSys.Migrations.Identity
             if (!roleManager.RoleExists("Admin"))
                 roleManager.Create(new IdentityRole("Admin"));
 
-            if (!roleManager.RoleExists("Guest"))
+            if (!roleManager.RoleExists("Guest")) 
                 roleManager.Create(new IdentityRole("Guest"));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             string[] emails = { "admin@gmail.com", "guest@gmail.com" };
