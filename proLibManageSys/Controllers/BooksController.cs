@@ -18,6 +18,8 @@ namespace proLibManageSys.Controllers
         // GET: Books
         public ActionResult Index()
         {
+            /* var Book = db.book.ToList();
+             ViewBag.book = Book;*/
             return View(db.book.ToList());
         }
 
@@ -107,6 +109,7 @@ namespace proLibManageSys.Controllers
             return View(books);
         }
 
+        /*
         // GET: Books/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -131,9 +134,20 @@ namespace proLibManageSys.Controllers
             db.book.Remove(books);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }*/
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            bool result = false;
+            var Book = db.book.FirstOrDefault(b => b.bookId == id);
+            if (Book != null) {
+                db.book.Remove(Book);
+                db.SaveChanges();
+                result = true;
+            }
+            return Json(result,JsonRequestBehavior.AllowGet);
         }
 
-       
 
         protected override void Dispose(bool disposing)
         {

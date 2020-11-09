@@ -26,7 +26,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.authorName, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(model => model.authorName, new SelectList(ViewBag.authorList),"select Author", htmlAttributes: new { @class = "form-control" })
+				  
+                 
+
+				@Html.DropDownListFor(model => model.authorName, new SelectList(ViewBag.authorList), "select Author", htmlAttributes: new { @class = "form-control" })
+
+				@*<button onclick="@Model.authorName">Add values in dropdown</button>*@
 				@Html.ValidationMessageFor(model => model.authorName, "", new { @class = "text-danger" })
 			</div>
         </div>

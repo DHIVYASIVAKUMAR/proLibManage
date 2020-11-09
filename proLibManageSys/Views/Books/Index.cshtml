@@ -9,6 +9,25 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<div class="modal fade" id="deleteModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title">Confirm</h2>
+			</div>
+			<div class="modal-body">
+				<h3>Confirming Deletion?</h3>
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group">
+					<a href="#" id="btnDelete" class="btn btn-primary "> Delete </a>
+                     
+					<a href="#" id="btnCancel" class="btn btn-primary "> Cancel </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -52,12 +71,49 @@
         <td>
             @Html.DisplayFor(modelItem => item.isAvailable)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.bookId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.bookId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.bookId })
+		<td>
+			@Html.ActionLink("Edit", "Edit", new { id = item.bookId }) |
+			@Html.ActionLink("Details", "Details", new { id = item.bookId }) |
+
         </td>
+        <td>
+            <a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.bookId)">Delete</a>
+        </td>
+       
     </tr>
 }
 
 </table>
+
+<input type="hidden" id="deleteBookId"/>
+<script>
+    
+    
+
+    $("#btnDelete").click(function () {
+        var deleteBookIdValue = $("#deleteBookId").val();
+
+        $.ajax({
+            type: "POST",
+            url: "Delete",
+			data: { id: deleteBookIdValue },
+            success: function (result) {
+                if (result) {
+                    $("#deleteModal").modal("hide");
+                    $("#deletebookId").val(null);
+                } else {
+                    alert("something went wrong");
+                }
+            }
+        })
+	})
+
+    $("#btnCancel").click(function () {
+        window.location.href = "Index";
+    })
+	function Confirm(id) {
+		$("#deleteBookId").val(id);
+		$("#deleteModal").modal('show');
+	}
+</script>
+
