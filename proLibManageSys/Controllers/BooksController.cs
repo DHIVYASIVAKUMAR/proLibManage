@@ -20,6 +20,7 @@ namespace proLibManageSys.Controllers
         {
             /* var Book = db.book.ToList();
              ViewBag.book = Book;*/
+
             return View(db.book.ToList());
         }
 
@@ -63,6 +64,7 @@ namespace proLibManageSys.Controllers
             ViewBag.authorList = authorList;
             
             var list = new List<string>() { "stories","Data structure & algorithm","Web Developement","programming","Languages" };
+            
             ViewBag.list = list;
             
             var publicationsList = new List<string>() { "Bloomsbury", "John Wiley", "MIT Press" ,"IIT Press"};
@@ -144,7 +146,7 @@ namespace proLibManageSys.Controllers
                 db.book.Remove(Book);
                 db.SaveChanges();
                 result = true;
-            }
+            }                                                                                               
             return Json(result,JsonRequestBehavior.AllowGet);
         }
 
