@@ -60,7 +60,7 @@ namespace proLibManageSys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "bookId,bookName,authorName,serialNumber,branch,publications,isAvailable")] Books books)
         {
-			var authorList = new List<string>() { "J.K Rowling", "TCRC", "John", "peter", "Jessica", "Moshe cholie" };
+			var authorList = new List<string>() {"J.K Rowling", "TCRC", "John", "peter", "Jessica", "Moshe cholie" };
             ViewBag.authorList = authorList;
             
             var list = new List<string>() { "stories","Data structure & algorithm","Web Developement","programming","Languages" };
@@ -141,6 +141,7 @@ namespace proLibManageSys.Controllers
         public JsonResult Delete(int id)
         {
             bool result = false;
+            
             var Book = db.book.FirstOrDefault(b => b.bookId == id);
             if (Book != null) {
                 db.book.Remove(Book);

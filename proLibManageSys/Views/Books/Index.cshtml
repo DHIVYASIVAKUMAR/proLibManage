@@ -73,47 +73,50 @@ smoothness/jquery-ui.css">
 			<th>
 				@Html.DisplayNameFor(model => model.isAvailable)
 			</th>
-			<th></th>
+			<th>actions</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
+		
 
-			@foreach (var item in Model.OrderByDescending(p => p.bookId))
-			{
-				<tr>
-					<td>
-						@Html.DisplayFor(modelItem => item.bookName)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.authorName)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.serialNumber)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.branch)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.publications)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.isAvailable)
-					</td>
 
-					<td>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.bookName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.authorName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.serialNumber)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.branch)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.publications)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.isAvailable)
+				</td>
 
-						@Html.ActionLink("Edit", "Edit", new { id = item.bookId }) |
-						@Html.ActionLink("Details", "Details", new { id = item.bookId }) |
+				<td>
 
-					</td>
-					<td>
-						<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.bookId)">Delete</a>
-					</td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.bookId }) |
+					@Html.ActionLink("Details", "Details", new { id = item.bookId }) |
 
-				</tr>
-			}
+				</td>
+				<td>
+					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.bookId)">Delete</a>
+				</td>
 
-		</tbody>
+			</tr>
+		}
+		
+	</tbody>
 </table>
 
 <input type="hidden" id="deleteBookId" />

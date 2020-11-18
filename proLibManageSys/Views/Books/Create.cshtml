@@ -1,88 +1,137 @@
-﻿       @model proLibManageSys.Models.Books
+﻿@model proLibManageSys.Models.Books
 
 @{
-    ViewBag.Title = "Create";
+	ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
+<link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/
+smoothness/jquery-ui.css">
 
-@using (Html.BeginForm()) 
+<div class="modal fade" id="newAuthorModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title">Create</h2>
+			</div>
+			<div class="modal-body">
+				<p>New Author name</p>
+				<input id="newAuthorTextBox" type="text" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" id="btnOk" style="margin-right:5px" onclick="addName()">Add</button>
+				<a href="#" id="btnCancel" class="btn btn-primary " onclick="cancelName()"> Cancel </a>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Books</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.bookName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.bookName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.bookName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	@Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.authorName, htmlAttributes: new { @class = "control-label col-md-2" })
+	<div class="form-horizontal">
+		<h4>Books</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<div class="form-group">
+			@Html.LabelFor(model => model.bookName, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				  
-                 
+				@Html.EditorFor(model => model.bookName, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.bookName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.authorName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+
+
 
 				@Html.DropDownListFor(model => model.authorName, new SelectList(ViewBag.authorList), "select Author", htmlAttributes: new { @class = "form-control" })
 
 				@*<button onclick="@Model.authorName">Add values in dropdown</button>*@
+
+				<a href="#" id="showModal" class="btn " onclick="NewAuthor()">Add New Author</a>
+
+
 				@Html.ValidationMessageFor(model => model.authorName, "", new { @class = "text-danger" })
 			</div>
-        </div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.serialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.serialNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.serialNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.branch, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="form-group">
+			@Html.LabelFor(model => model.serialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-                @Html.DropDownListFor(model => model.branch, new SelectList(ViewBag.list),"select Branch",htmlAttributes: new {@class = "form-control" })
+				@Html.EditorFor(model => model.serialNumber, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.serialNumber, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.branch, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.branch, new SelectList(ViewBag.list), "select Branch", htmlAttributes: new { @class = "form-control" })
 				@*@Html.EditorFor(model => model.branch, new { htmlAttributes = new { @class = "form-control" } })*@
 				@Html.ValidationMessageFor(model => model.branch, "", new { @class = "text-danger" })
 			</div>
-        </div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.publications, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="form-group">
+			@Html.LabelFor(model => model.publications, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
 				@Html.DropDownListFor(model => model.publications, new SelectList(ViewBag.publicationsList), "select Publications", htmlAttributes: new { @class = "form-control" })
 				@Html.ValidationMessageFor(model => model.publications, "", new { @class = "text-danger" })
 			</div>
-        </div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.isAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.isAvailable)
-                    @Html.ValidationMessageFor(model => model.isAvailable, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.isAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				<div class="checkbox">
+					@Html.EditorFor(model => model.isAvailable)
+					@Html.ValidationMessageFor(model => model.isAvailable, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>                                            
-        </div>
-    </div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script>
+		function NewAuthor() {
+			$("#newAuthorModal").modal('show');
+		}
+
+	
+
+		function cancelName() {
+			
+			$("#newAuthorModal").modal('hide');
+		}
+
+		function addName() {
+			
+			var newAuthorName = $("#newAuthorTextBox").val();
+
+			alert(newAuthorName + " added successfully ! ");
+			$("#newAuthorModal").modal('hide');
+		}
+		
+	</script>
+
+
 }
