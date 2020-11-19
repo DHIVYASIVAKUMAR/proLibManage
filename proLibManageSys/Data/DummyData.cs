@@ -40,6 +40,7 @@ namespace proLibManageSys.Data
 
 			return book;
 		}
+		/*
 
 		public static List<Students> GetStudentDetails()
 		{
@@ -73,19 +74,16 @@ namespace proLibManageSys.Data
 		{
 			List<IssuedBooks> issuedBook = new List<IssuedBooks>()
 			{
+
 				new IssuedBooks(){
-					issuedBookName ="Harry Potter",
-					issuedAuthorName ="J.K Rowling",
-					issuedBookBranch ="Stories",
-					issuedBookPublications ="Bloomsbury",
-					issuedStudentName ="Dhivya",
-					issuedStudentEmail  ="abcdef@gmail.com", 
+					bookId=1,
+					studentId=1,
 					fromDate="01-11-2020",
 					toDate="15-11-2020"
 				}
 			};
 
 			return issuedBook;
-		}
+		}*/
 	}
 }

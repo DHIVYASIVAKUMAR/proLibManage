@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,32 @@ namespace proLibManageSys.Models
         [Key]
         public int issuedId { get; set; }
 
+		//[ForeignKey("Books")]
+        public int bookId { get; set; }
+        [ForeignKey("bookId")]
+        public Books books { get; set; }
+
+       //[ForeignKey("Students")]
+        public int studentId { get; set; }
+		[ForeignKey("studentId")]
+        public Students students { get; set; }
+        
+
+        [Required(ErrorMessage = "please enter in \"dd-mm-yyyy\"this format")]
+        [Display(Name = "From date")]
+        public string fromDate { get; set; }
+
+        [Required(ErrorMessage = "please enter in \"dd-mm-yyyy\"this format")]
+        [Display(Name = "To date")]
+        public string toDate { get; set; }
+
+        
+       
+
+
+
+
+        /*
         [Required(ErrorMessage = "please enter Book Name")]
         [Display(Name = "Book Name")]
         public string issuedBookName { get; set; }
@@ -37,12 +64,6 @@ namespace proLibManageSys.Models
         [EmailAddress]
         public string issuedStudentEmail { get; set; }
 
-        [Required(ErrorMessage = "please enter in \"dd-mm-yyyy\"this format")]
-        [Display(Name = "From date")]
-        public string fromDate { get; set; }
-
-        [Required(ErrorMessage = "please enter in \"dd-mm-yyyy\"this format")]
-        [Display(Name = "To date")]
-        public string toDate { get; set; }
+        */
     }
 }

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using proLibManageSys.Data;
 using proLibManageSys.Models;
+using proLibManageSys.ViewModels;
 
 namespace proLibManageSys.Controllers
 {
@@ -39,7 +40,9 @@ namespace proLibManageSys.Controllers
         // GET: Students/Create
         public ActionResult Create()
         {
-            return View();
+            StudentViewModel studentViewModel = new StudentViewModel();
+            studentViewModel.studentBranches = db.studentBranches.ToList();
+            return View(studentViewModel);
         }
 
         // POST: Students/Create
@@ -47,16 +50,16 @@ namespace proLibManageSys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "studentId,studentName,studentBranch,gender,phoneNumber,address,city,email,password")] Students students)
+        public ActionResult Create(StudentViewModel studentObj)
         {
             if (ModelState.IsValid)
             {
-                db.student.Add(students);
+                db.student.Add(studentObj.students);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+				return RedirectToAction("Index");
             }
 
-            return View(students);
+            return View(studentObj);
         }
 
         // GET: Students/Edit/5
@@ -91,29 +94,52 @@ namespace proLibManageSys.Controllers
         }
 
         // GET: Students/Delete/5
-        public ActionResult Delete(int? id)
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Students students = db.student.Find(id);
+        //    if (students == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(students);
+        //}
+
+        //// POST: Students/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Students students = db.student.Find(id);
+        //    db.student.Remove(students);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            bool result = false;
+            var student = db.student.FirstOrDefault(s => s.studentId == id);
+            if (student != null) {
+                db.student.Remove(student);
+                db.SaveChanges();
+                result = true;
             }
-            Students students = db.student.Find(id);
-            if (students == null)
-            {
-                return HttpNotFound();
-            }
-            return View(students);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Students/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+
+        [HttpPost]
+        public JsonResult AddBranch(string name) 
         {
-            Students students = db.student.Find(id);
-            db.student.Remove(students);
+            var branchs = new StudentBranch();
+            branchs.studentBranch = name;
+			db.studentBranches.Add(branchs);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new { result = "success" });
         }
 
         protected override void Dispose(bool disposing)

@@ -30,10 +30,12 @@ smoothness/jquery-ui.css">
             <div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li>@Html.ActionLink("Book", "Index", "Books")</li>
-					@if (User.IsInRole("Admin"))
-					{
-						<li>@Html.ActionLink("IssuedDetails", "Index", "IssuedBooks")</li>
-					}
+					<li>@Html.ActionLink("IssuedDetails", "Index", "IssuedBooks")</li>
+					@* @if (User.IsInRole("Admin"))
+		               {
+			            <li>@Html.ActionLink("IssuedDetails", "Index", "IssuedBooks")</li>
+		               }
+                    *@
 
 					<li>@Html.ActionLink("Student", "Index", "Students")</li>
 					<li>@Html.ActionLink("About", "About", "Home")</li>

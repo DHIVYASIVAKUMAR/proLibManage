@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using proLibManageSys.Data;
 using proLibManageSys.Models;
+using proLibManageSys.ViewModels;
 
 namespace proLibManageSys.Controllers
 {
@@ -18,10 +19,7 @@ namespace proLibManageSys.Controllers
         // GET: Books
         public ActionResult Index()
         {
-            /* var Book = db.book.ToList();
-             ViewBag.book = Book;*/
-
-            return View(db.book.ToList());
+			return View(db.book.ToList());
         }
 
         // GET: Books/Details/5
@@ -42,37 +40,27 @@ namespace proLibManageSys.Controllers
         // GET: Books/Create
         public ActionResult Create()
         {
-            var authorList = new List<string>() { "J.K Rowling", "TCRC", "John", "peter", "Jessica", "Moshe cholie" };
-            ViewBag.authorList = authorList;
+            BooksViewModel booksViewModel = new BooksViewModel();
 
-            var list = new List<string>() { "stories", "Data structure & algorithm", "Web Developement", "programming", "Languages" };
-            ViewBag.list = list;
-            var publicationsList = new List<string>() { "Bloomsbury", "John Wiley", "MIT Press", "IIT Press" };
-            ViewBag.publicationsList = publicationsList;
+            booksViewModel.authors = db.author.ToList();
+                // db.author.Select(x => new SelectListItem { Text = x.authorName, Value = x.authorName }).ToList();
+            booksViewModel.bookBranches = db.bookBranch.ToList();
+            booksViewModel.bookPublications = db.bookPublication.ToList();          
             
-            return View();
+            return View(booksViewModel);
         }
 
         // POST: Books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "bookId,bookName,authorName,serialNumber,branch,publications,isAvailable")] Books books)
-        {
-			var authorList = new List<string>() {"J.K Rowling", "TCRC", "John", "peter", "Jessica", "Moshe cholie" };
-            ViewBag.authorList = authorList;
-            
-            var list = new List<string>() { "stories","Data structure & algorithm","Web Developement","programming","Languages" };
-            
-            ViewBag.list = list;
-            
-            var publicationsList = new List<string>() { "Bloomsbury", "John Wiley", "MIT Press" ,"IIT Press"};
-            ViewBag.publicationsList = publicationsList;
-            
+        public ActionResult Create(BooksViewModel books)
+        {            
             if (ModelState.IsValid)
             {
-                db.book.Add(books);
+                db.book.Add(books.book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -151,6 +139,33 @@ namespace proLibManageSys.Controllers
             return Json(result,JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult AddAuthor(string name)
+        {
+            var author = new Author();
+            author.authorName = name;
+            db.author.Add(author);
+			db.SaveChanges();
+            return Json(new { result = "success"});
+        }
+        [HttpPost]
+        public JsonResult AddBranch(string name)
+        {
+            var bookBranch = new BookBranch();
+            bookBranch.branch = name;
+            db.bookBranch.Add(bookBranch);
+            db.SaveChanges();
+            return Json(new { result = "success" });
+        }
+        [HttpPost]
+        public JsonResult AddPublication(string name)
+        {
+            var publication = new BookPublication();
+            publication.publications = name;
+            db.bookPublication.Add(publication);
+            db.SaveChanges();
+            return Json(new { result = "success" });
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -11,8 +11,7 @@
 </p>
 <link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/
-smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
 
 <div class="modal fade" id="successModal">
@@ -25,7 +24,7 @@ smoothness/jquery-ui.css">
 				<p>Success ! </p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" id="btnOk">Ok</button>
+				<button type="button" class="btn btn-default" id="btnOk" onclick="btnOk()">Ok</button>
 
 			</div>
 		</div>
@@ -43,9 +42,9 @@ smoothness/jquery-ui.css">
 			</div>
 			<div class="modal-footer">
 				<div class="btn-group">
-					<a href="#" id="btnDelete" class="btn btn-primary " style="margin-right:5px"> Delete </a>
+					<a href="#" id="btnDelete" class="btn btn-primary " style="margin-right:5px" onclick="btnDelete()"> Delete </a>
 
-					<a href="#" id="btnCancel" class="btn btn-primary "> Cancel </a>
+					<a href="#" id="btnCancel" class="btn btn-primary " onclick="btnCancel()"> Cancel </a>
 				</div>
 			</div>
 		</div>
@@ -130,7 +129,7 @@ smoothness/jquery-ui.css">
 	});
 
 
-	$("#btnDelete").click(function () {
+		function btnDelete() {
 
 		var deleteBookIdValue = $("#deleteBookId").val();
 
@@ -151,17 +150,17 @@ smoothness/jquery-ui.css">
 					alert("something went wrong");
 				}
 			}
-		})
-	});
+		});
+	}
 
-	$("#btnCancel").click(function () {
+		function btnCancel() {
 		window.location.href = "";
-	});
+	   }
 
 
-	$("#btnOk").click(function () {
+		function btnOk() {
 		location.reload();
-	});
+	}
 	function Confirm(id) {
 		$("#deleteBookId").val(id);
 		$("#deleteModal").modal('show');

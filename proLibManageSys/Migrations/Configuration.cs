@@ -27,17 +27,17 @@ namespace proLibManageSys.Migrations
                 );
             context.SaveChanges();
 
-            context.student.AddOrUpdate(
-                s => s.studentId,
-                DummyData.GetStudentDetails().ToArray()
-                );
-            context.SaveChanges();
+            //context.student.AddOrUpdate(
+            //    s => s.studentId,
+            //    DummyData.GetStudentDetails().ToArray()
+            //    );
+            //context.SaveChanges();
 
-            context.issuedBook.AddOrUpdate(
-                i => i.issuedId,
-                DummyData.GetIssuedBooks().ToArray()
-                );
-            context.SaveChanges();
+            //context.issuedBook.AddOrUpdate(
+            //    i => i.issuedId,
+            //    DummyData.GetIssuedBooks().ToArray()
+            //    );
+            //context.SaveChanges();
         }
     }
 }

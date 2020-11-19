@@ -18,4 +18,26 @@ namespace proLibManageSys.Models
 		public string authorName { get; set; }
 		
 	}
+	public class BookBranch
+	{
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int bookBranchId { get; set; } 
+
+		[Required(ErrorMessage = "please enter Branch")]
+		[Display(Name = "Branch")]
+		public string branch { get; set; }
+	}
+
+	public class BookPublication
+	{
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int bookPublicationId { get; set; }
+
+		
+		[Required(ErrorMessage = "please enter Publications")]
+		[Display(Name = "Publications")]
+		public string publications { get; set; }
+	}
 }

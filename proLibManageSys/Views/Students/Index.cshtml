@@ -1,77 +1,152 @@
 ﻿@model IEnumerable<proLibManageSys.Models.Students>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+	@Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-	<tr>
-		<th>
-			@Html.DisplayNameFor(model => model.studentName)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.studentBranch)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.gender)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.phoneNumber)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.address)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.city)
-		</th>
-		@*  <th>
-			@Html.DisplayNameFor(model => model.email)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.password)
-		</th> *@
+<link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 
-		<th></th>
-	</tr>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
-@foreach (var item in Model) {
-<tr>
-	<td>
-		@Html.DisplayFor(modelItem => item.studentName)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.studentBranch)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.gender)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.phoneNumber)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.address)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.city)
-	</td>
-	@*<td>
-			@Html.DisplayFor(modelItem => item.email)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.password)
-		</td> *@
+<div class="modal fade" id="successModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Action</h2>
+			</div>
+			<div class="modal-body">
+				<h2>Success !</h2>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btnOk" class="btn btn-default">Ok</button>
+			</div>
+		</div>
+	</div>
+</div>
 
-	<td>
-		@Html.ActionLink("Edit", "Edit", new { id = item.studentId }) |
-		@Html.ActionLink("Details", "Details", new { id = item.studentId }) |
-		@Html.ActionLink("Delete", "Delete", new { id = item.studentId })
-	</td>
-</tr>
-}
+<div class="modal fade" id="deleteModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Delete</h2>
+			</div>
+			<div class="modal-body">
+				<h2>Are you sure ? </h2>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" id="btnDelete">Delete</button>
+				<button class="btn btn-primary" id="btnCancel">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
 
+<table class="table" id="studentTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.studentName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.studentBranch)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.gender)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.phoneNumber)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.address)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.city)
+			</th>
+			<th>Actions</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.studentName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.studentBranch)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.gender)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.phoneNumber)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.address)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.city)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.studentId }) |
+					@Html.ActionLink("Details", "Details", new { id = item.studentId })
+				</td>
+				<td>
+					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.studentId)">Delete</a>
+				</td>
+			</tr>
+
+		}
+	</tbody>
 </table>
+
+<input type="hidden" id="deleteStudentId" />
+
+@section scripts{
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#studentTable').dataTable();
+
+			$('#btnOk').click(function () {
+				location.reload();
+			});
+
+			$('#btnCancel').click(function () {
+				location.reload();
+			});
+
+			$('#btnDelete').click(function () {
+				var deleteStudentIdValue = $('#deleteStudentId').val();
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("Delete")',
+					data: { id: deleteStudentIdValue },
+					success: function (result) {
+						if (result) {
+							$('#deleteModal').modal('hide');
+							$('#deleteStudentId').val(null);
+							$('#successModal').modal('show')
+						}
+						else {
+							alert("Something Went Wrong ");
+						}
+					}
+				});
+			});
+		});
+
+		function Confirm(id) {
+			$('#deleteStudentId').val(id);
+			$('#deleteModal').modal('show');
+		}
+
+	</script>
+
+}

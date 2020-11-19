@@ -22,7 +22,7 @@ namespace proLibManageSys.Models
 
         [Required(ErrorMessage = "Please select Gender")]
         [Display(Name = "Gender")]
-        public string gender { get; set; }
+        public Gender gender { get; set; }
 
 
         [Required(ErrorMessage = "please enter phone number")]
@@ -50,6 +50,11 @@ namespace proLibManageSys.Models
         [StringLength(10, ErrorMessage = "Must be between 5 and 10 characters", MinimumLength = 5)]
         [DataType(DataType.Password)]
         public string password { get; set; }
+
+        //public virtual ICollection<IssuedBooks> issuedBooks { get; set; }
     }
-    
+    public enum Gender { 
+     Male,Female,Genderless
+    }
+   
 }

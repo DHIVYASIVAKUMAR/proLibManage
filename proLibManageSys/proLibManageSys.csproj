@@ -182,6 +182,14 @@
     <Compile Include="Migrations\202011031039050_InitialCreate.Designer.cs">
       <DependentUpon>202011031039050_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011180955333_secondCreate.cs" />
+    <Compile Include="Migrations\202011180955333_secondCreate.Designer.cs">
+      <DependentUpon>202011180955333_secondCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011191239455_ThirdCreate.cs" />
+    <Compile Include="Migrations\202011191239455_ThirdCreate.Designer.cs">
+      <DependentUpon>202011191239455_ThirdCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Identity\202011050613499_InitialIdentity.cs" />
     <Compile Include="Migrations\Identity\202011050613499_InitialIdentity.Designer.cs">
@@ -191,18 +199,18 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Books.cs" />
+    <Compile Include="Models\StudentBranch.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IssuedBooks.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Students.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BooksViewModel.cs" />
+    <Compile Include="ViewModels\Display.cs" />
+    <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-proLibManageSys-20201103125747.mdf" />
-    <Content Include="App_Data\aspnet-proLibManageSys-20201103125747_log.ldf">
-      <DependentUpon>aspnet-proLibManageSys-20201103125747.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -275,7 +283,9 @@
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -292,6 +302,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202011031039050_InitialCreate.resx">
       <DependentUpon>202011031039050_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011180955333_secondCreate.resx">
+      <DependentUpon>202011180955333_secondCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011191239455_ThirdCreate.resx">
+      <DependentUpon>202011191239455_ThirdCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Identity\202011050613499_InitialIdentity.resx">
       <DependentUpon>202011050613499_InitialIdentity.cs</DependentUpon>
