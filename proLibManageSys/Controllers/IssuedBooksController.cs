@@ -19,6 +19,7 @@ namespace proLibManageSys.Controllers
         // GET: IssuedBooks
         public ActionResult Index()
         {
+            
             return View(db.issuedBook.ToList());
         }
 
@@ -38,26 +39,58 @@ namespace proLibManageSys.Controllers
         }
 
         // GET: IssuedBooks/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            var book = (from books in db.book
+						where books.bookId == id
+						select books).FirstOrDefault();
+            ViewBag.bookName = book.bookName;
+            ViewBag.authorName = book.authorName;
+            ViewBag.bookId = book.bookId;
+           
+            return View(db.student.ToList());
         }
 
         // POST: IssuedBooks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "issuedId,issuedBookName,issuedAuthorName,issuedBookBranch,issuedBookPublications,issuedStudentName,issuedStudentEmail,fromDate,toDate")] IssuedBooks issuedBooks)
-        {
-            if (ModelState.IsValid)
-            {
-                db.issuedBook.Add(issuedBooks);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "issuedId,issuedBookName,issuedAuthorName,issuedBookBranch,issuedBookPublications,issuedStudentName,issuedStudentEmail,fromDate,toDate")] IssuedBooks issuedBooks)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.issuedBook.Add(issuedBooks);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(issuedBooks);
+        //    return View(issuedBooks);
+        //}
+
+        [HttpPost]
+        public JsonResult BookIssue(int bookId,int studentId,string fromDate,string toDate) {
+
+            var issuedBook = new IssuedBooks();
+            issuedBook.bookId = bookId;
+            issuedBook.studentId = studentId;
+            issuedBook.fromDate = fromDate;
+            issuedBook.toDate = toDate;
+
+            var Book = db.book.FirstOrDefault(b => b.bookId == bookId);
+            if (issuedBook != null && Book != null)
+            {
+                db.issuedBook.Add(issuedBook);
+                db.SaveChanges();
+                Book.isAvailable = false;
+
+                db.Entry(Book).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { result = "success" });
+            }
+            else {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: IssuedBooks/Edit/5

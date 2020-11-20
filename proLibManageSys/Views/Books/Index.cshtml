@@ -31,6 +31,7 @@
 	</div>
 </div>
 
+
 <div class="modal fade" id="deleteModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -74,6 +75,7 @@
 			</th>
 			<th>actions</th>
 			<th>Delete</th>
+			<th>Issues</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -101,71 +103,71 @@
 				<td>
 					@Html.DisplayFor(modelItem => item.isAvailable)
 				</td>
-
 				<td>
-
-					@Html.ActionLink("Edit", "Edit", new { id = item.bookId }) |
-					@Html.ActionLink("Details", "Details", new { id = item.bookId }) |
-
+					<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.bookId },new { @style = "color:#FFFFFF;" }) </button>
+					<button class="btn btn-primary">@Html.ActionLink("Details", "Details", new { id = item.bookId }, new { @style = "color:#FFFFFF;" })</button>					
 				</td>
 				<td>
 					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.bookId)">Delete</a>
 				</td>
-
+				<td>
+					@if (item.isAvailable)
+					{						
+						<a href='@Url.Action("Create", "IssuedBooks",new { id = @item.bookId})' class="btn btn-primary">Issue</a>
+					}
+					else { 
+					    <button class="btn btn-primary" id="btnIssue" disabled>Issue</button>
+					}
+				</td>
 			</tr>
 		}
 		
 	</tbody>
 </table>
 
-<input type="hidden" id="deleteBookId" />
+<input type="hidden" id="selectBookId" />
 
 
 @section scripts{
 	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 	<script>
+
 	$(document).ready(function () {
 		$('#bookTable').dataTable();
 	});
-
-
 		function btnDelete() {
+		var deleteBookIdValue = $("#selectBookId").val();
 
-		var deleteBookIdValue = $("#deleteBookId").val();
-
-		$.ajax({
+	    $.ajax({
 			type: "POST",
 			url: '@Url.Action("Delete")',
 			data: { id: deleteBookIdValue },
 			success: function (result) {
-				if (result) {
-					$("#deleteModal").modal("hide");
-
-					$("#deletebookId").val(null);
-					//confirm(" Deleted Success !")
-					$("#successModal").modal('show');
-					//location.reload();
-
-				} else {
-					alert("something went wrong");
-				}
+			  if (result) {
+			    $("#deleteModal").modal("hide");
+				  $("#selectbookId").val(null);
+				$("#successModal").modal('show');
+			  }
+			  else {
+				alert("something went wrong");
+			  }
 			}
 		});
-	}
+		}
 
 		function btnCancel() {
-		window.location.href = "";
-	   }
-
+			window.location.href = "";
+		}
 
 		function btnOk() {
-		location.reload();
-	}
-	function Confirm(id) {
-		$("#deleteBookId").val(id);
-		$("#deleteModal").modal('show');
+			location.reload();
+		}
 
-	}
+		function Confirm(id) {
+			$("#selectBookId").val(id);
+			$("#deleteModal").modal('show');
+		}	
+		
 	</script>
 }
 

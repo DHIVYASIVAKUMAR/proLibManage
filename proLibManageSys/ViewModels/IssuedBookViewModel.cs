@@ -5,7 +5,8 @@ using System.Web;
 
 namespace proLibManageSys.ViewModels
 {
-	public class Display
+	public class IssuedBookViewModel
 	{
+
 	}
 }

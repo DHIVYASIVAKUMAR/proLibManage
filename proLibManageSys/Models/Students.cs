@@ -54,7 +54,9 @@ namespace proLibManageSys.Models
         //public virtual ICollection<IssuedBooks> issuedBooks { get; set; }
     }
     public enum Gender { 
-     Male,Female,Genderless
+     Female,
+     Male,
+     Genderless
     }
    
 }

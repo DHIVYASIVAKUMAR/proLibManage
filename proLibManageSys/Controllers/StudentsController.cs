@@ -21,7 +21,7 @@ namespace proLibManageSys.Controllers
         {
             return View(db.student.ToList());
         }
-
+        
         // GET: Students/Details/5
         public ActionResult Details(int? id)
         {

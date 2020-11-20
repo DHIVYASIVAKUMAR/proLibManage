@@ -99,38 +99,13 @@ namespace proLibManageSys.Controllers
             return View(books);
         }
 
-        /*
-        // GET: Books/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Books books = db.book.Find(id);
-            if (books == null)
-            {
-                return HttpNotFound();
-            }
-            return View(books);
-        }
-
-        // POST: Books/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Books books = db.book.Find(id);
-            db.book.Remove(books);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }*/
         [HttpPost]
         public JsonResult Delete(int id)
         {
             bool result = false;
             
             var Book = db.book.FirstOrDefault(b => b.bookId == id);
+            Book.isAvailable = false;
             if (Book != null) {
                 db.book.Remove(Book);
                 db.SaveChanges();
@@ -166,7 +141,6 @@ namespace proLibManageSys.Controllers
             db.SaveChanges();
             return Json(new { result = "success" });
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

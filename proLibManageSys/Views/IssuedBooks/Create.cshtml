@@ -1,96 +1,258 @@
-﻿@model proLibManageSys.Models.IssuedBooks
+﻿@model IEnumerable<proLibManageSys.Models.Students>
 
 @{
-    ViewBag.Title = "Create";
+	ViewBag.Title = "Index";
 }
 
-<h2>Create</h2>
+<h2>Book Issue</h2>
 
+<link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>IssuedBooks</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.issuedBookName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.issuedBookName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.issuedBookName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.issuedAuthorName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.issuedAuthorName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.issuedAuthorName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.issuedBookBranch, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.issuedBookBranch, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.issuedBookBranch, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.issuedBookPublications, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.issuedBookPublications, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.issuedBookPublications, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.issuedStudentName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.issuedStudentName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.issuedStudentName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.issuedStudentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.issuedStudentEmail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.issuedStudentEmail, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.fromDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fromDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fromDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.toDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.toDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.toDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="modal fade" id="successModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Action</h2>
+			</div>
+			<div class="modal-body">
+				<h2> Issued Success !</h2>
+			</div>
+			<div class="modal-footer">
+				
+				<button class="btn btn-primary">@Html.ActionLink("OK", "Index", "Books", new { @style = "color:#FFFFFF;" })</button>
+				<button type="button" id="btnOk" class="btn btn-default">Ok</button>
+			</div>
+		</div>
+	</div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+<div class="modal fade" id="issueModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4>Book Issue</h4>
+			</div>
+			<div class="modal-body">
+				<div>
+					<label>Book Name:</label>  @ViewBag.bookName
+					<hr />
+					<label>Author Name:</label>  @ViewBag.authorName
+					<hr />
+					<label>From date (dd:mm:yyyy):</label>
+					<input type="text" id="fromDate" />
+					<hr />
+					<label>To date (dd:mm:yyyy):</label>
+					<input type="text" id="toDate" />
+				</div>
+				<h3>Do you Want To Issue this Book ? </h3>
+			</div>
+			<div class="modal-footer">
+				
+				<button class="btn btn-primary" id="btnIssue">Issue</button>
+				<button class="btn btn-primary" id="btnCancel">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<table class="table" id="studentTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.studentName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.studentBranch)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.gender)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.phoneNumber)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.email)
+			</th>
+			
+			
+			<th>Select</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.studentName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.studentBranch)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.gender)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.phoneNumber)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.email)
+				</td>
+				
+				
+				<td>
+					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.studentId)">Select</a>
+				</td>
+			</tr>
+
+		}
+	</tbody>
+</table>
+
+<input type="hidden" id="selectStudentId" />
+
+@section scripts{
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#studentTable').dataTable();
+
+			$('#btnOk').click(function () {
+				location.reload();
+			});
+
+			$('#btnCancel').click(function () {
+				location.reload();
+			});
+
+			$('#btnIssue').click(function () {			
+				
+				var data = {
+					'bookId':@ViewBag.bookId,
+					'studentId': $('#selectStudentId').val(),
+					'fromDate': $('#fromDate').val(),
+					'todate':$('#toDate').val()
+				}
+
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("BookIssue")',
+					data: data,
+					success: function (result) {
+						if (result) {
+							$('#issueModal').modal('hide');
+							$('#selectStudentId').val(null);
+							$('#successModal').modal('show')
+						}
+						else {
+							alert("Something Went Wrong ");
+						}
+					}
+				});
+			});
+		});
+
+		function Confirm(id) {
+			$('#selectStudentId').val(id);
+			$('#issueModal').modal('show');
+		}
+
+	</script>
+
 }
+@*@model proLibManageSys.ViewModels.StudentViewModel
+	@{
+		ViewBag.Title = "Create";
+	}
+
+	<h2>Create</h2>
+
+
+						@using (Html.BeginForm())
+						{
+							@Html.AntiForgeryToken()
+
+							<div class="form-horizontal">
+								<h4>IssuedBooks</h4>
+								<hr />
+								@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+								<div class="form-group">
+									@Html.LabelFor(model => model.issuedBookName, htmlAttributes: new { @class = "control-label col-md-2" })
+									<div class="col-md-10">
+										@Html.EditorFor(model => model.issuedBookName, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.issuedBookName, "", new { @class = "text-danger" })
+									</div>
+								</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.issuedAuthorName, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.issuedAuthorName, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.issuedAuthorName, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.issuedBookBranch, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.issuedBookBranch, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.issuedBookBranch, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.issuedBookPublications, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.issuedBookPublications, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.issuedBookPublications, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.issuedStudentName, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.issuedStudentName, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.issuedStudentName, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.issuedStudentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.issuedStudentEmail, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.issuedStudentEmail, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.fromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.fromDate, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.fromDate, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.toDate, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.toDate, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.toDate, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</div>
+			</div>
+		}
+
+		<div>
+			@Html.ActionLink("Back to List", "Index")
+		</div>
+
+		@section Scripts {
+			@Scripts.Render("~/bundles/jqueryval")
+		}*@

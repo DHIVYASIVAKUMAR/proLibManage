@@ -106,7 +106,7 @@
 	</tbody>
 </table>
 
-<input type="hidden" id="deleteStudentId" />
+<input type="hidden" id="selectStudentId" />
 
 @section scripts{
 	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
@@ -123,7 +123,7 @@
 			});
 
 			$('#btnDelete').click(function () {
-				var deleteStudentIdValue = $('#deleteStudentId').val();
+				var deleteStudentIdValue = $('#selectStudentId').val();
 				$.ajax({
 					type: "POST",
 					url: '@Url.Action("Delete")',
@@ -131,7 +131,7 @@
 					success: function (result) {
 						if (result) {
 							$('#deleteModal').modal('hide');
-							$('#deleteStudentId').val(null);
+							$('#selectStudentId').val(null);
 							$('#successModal').modal('show')
 						}
 						else {
@@ -143,7 +143,7 @@
 		});
 
 		function Confirm(id) {
-			$('#deleteStudentId').val(id);
+			$('#selectStudentId').val(id);
 			$('#deleteModal').modal('show');
 		}
 
