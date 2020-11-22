@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using proLibManageSys.Data;
 using proLibManageSys.Models;
+using proLibManageSys.ViewModels;
 
 namespace proLibManageSys.Controllers
 {
@@ -15,12 +16,30 @@ namespace proLibManageSys.Controllers
     public class IssuedBooksController : Controller
     {
         private ModelsContext db = new ModelsContext();
+        List<Books> book = new List<Books>();
+        List<Students> student = new List<Students>();
+        List<IssuedBooks> issuedBooks = new List<IssuedBooks>();
 
         // GET: IssuedBooks
         public ActionResult Index()
         {
-            
-            return View(db.issuedBook.ToList());
+           
+            var issuedBookViewModel = from i in issuedBooks
+                                 join b in book on i.bookId equals b.bookId
+                                 join s in student on i.studentId equals s.studentId
+                                 select new
+                                 {
+                                     bookName = b.bookName,
+                                     authorName = b.authorName,
+                                     branch = b.branch,
+                                     publication = b.publications,
+                                     studentName = s.studentName,
+                                     studentEmail = s.email,
+                                     fromDate = i.fromDate,
+                                     toDate = i.toDate
+                                 };
+
+            return View(issuedBookViewModel);
         }
 
         // GET: IssuedBooks/Details/5
