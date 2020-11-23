@@ -40,11 +40,11 @@
 					<hr />
 					<label>Author Name:</label>  @ViewBag.authorName
 					<hr />
-					<label>From date (dd:mm:yyyy):</label>
-					<input type="text" id="fromDate" />
+					<label>From date : </label>					
+					<input type="date" id="fromDate" />
 					<hr />
-					<label>To date (dd:mm:yyyy):</label>
-					<input type="text" id="toDate" />
+					<label>To date : </label>
+					<input type="date" id="toDate" />
 				</div>
 				<h3>Do you Want To Issue this Book ? </h3>
 			</div>
@@ -161,98 +161,4 @@
 	</script>
 
 }
-@*@model proLibManageSys.ViewModels.StudentViewModel
-	@{
-		ViewBag.Title = "Create";
-	}
 
-	<h2>Create</h2>
-
-
-						@using (Html.BeginForm())
-						{
-							@Html.AntiForgeryToken()
-
-							<div class="form-horizontal">
-								<h4>IssuedBooks</h4>
-								<hr />
-								@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-								<div class="form-group">
-									@Html.LabelFor(model => model.issuedBookName, htmlAttributes: new { @class = "control-label col-md-2" })
-									<div class="col-md-10">
-										@Html.EditorFor(model => model.issuedBookName, new { htmlAttributes = new { @class = "form-control" } })
-										@Html.ValidationMessageFor(model => model.issuedBookName, "", new { @class = "text-danger" })
-									</div>
-								</div>
-
-					<div class="form-group">
-						@Html.LabelFor(model => model.issuedAuthorName, htmlAttributes: new { @class = "control-label col-md-2" })
-						<div class="col-md-10">
-							@Html.EditorFor(model => model.issuedAuthorName, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.issuedAuthorName, "", new { @class = "text-danger" })
-						</div>
-					</div>
-
-					<div class="form-group">
-						@Html.LabelFor(model => model.issuedBookBranch, htmlAttributes: new { @class = "control-label col-md-2" })
-						<div class="col-md-10">
-							@Html.EditorFor(model => model.issuedBookBranch, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.issuedBookBranch, "", new { @class = "text-danger" })
-						</div>
-					</div>
-
-				<div class="form-group">
-					@Html.LabelFor(model => model.issuedBookPublications, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
-						@Html.EditorFor(model => model.issuedBookPublications, new { htmlAttributes = new { @class = "form-control" } })
-						@Html.ValidationMessageFor(model => model.issuedBookPublications, "", new { @class = "text-danger" })
-					</div>
-				</div>
-
-				<div class="form-group">
-					@Html.LabelFor(model => model.issuedStudentName, htmlAttributes: new { @class = "control-label col-md-2" })
-					<div class="col-md-10">
-						@Html.EditorFor(model => model.issuedStudentName, new { htmlAttributes = new { @class = "form-control" } })
-						@Html.ValidationMessageFor(model => model.issuedStudentName, "", new { @class = "text-danger" })
-					</div>
-				</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.issuedStudentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.issuedStudentEmail, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.issuedStudentEmail, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.fromDate, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.fromDate, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.fromDate, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.toDate, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.toDate, new { htmlAttributes = new { @class = "form-control" } })
-		@Html.ValidationMessageFor(model => model.toDate, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Create" class="btn btn-default" />
-			</div>
-		</div>
-			</div>
-		}
-
-		<div>
-			@Html.ActionLink("Back to List", "Index")
-		</div>
-
-		@section Scripts {
-			@Scripts.Render("~/bundles/jqueryval")
-		}*@

@@ -190,6 +190,10 @@
     <Compile Include="Migrations\202011191239455_ThirdCreate.Designer.cs">
       <DependentUpon>202011191239455_ThirdCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011230748086_forthCreate.cs" />
+    <Compile Include="Migrations\202011230748086_forthCreate.Designer.cs">
+      <DependentUpon>202011230748086_forthCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Identity\202011050613499_InitialIdentity.cs" />
     <Compile Include="Migrations\Identity\202011050613499_InitialIdentity.Designer.cs">
@@ -211,6 +215,10 @@
     <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-proLibManageSys-20201103125747.mdf" />
+    <Content Include="App_Data\aspnet-proLibManageSys-20201103125747_log.ldf">
+      <DependentUpon>aspnet-proLibManageSys-20201103125747.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -283,9 +291,7 @@
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -308,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011191239455_ThirdCreate.resx">
       <DependentUpon>202011191239455_ThirdCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011230748086_forthCreate.resx">
+      <DependentUpon>202011230748086_forthCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Identity\202011050613499_InitialIdentity.resx">
       <DependentUpon>202011050613499_InitialIdentity.cs</DependentUpon>

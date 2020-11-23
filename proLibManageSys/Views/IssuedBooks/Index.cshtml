@@ -1,74 +1,160 @@
 ﻿
-@model IEnumerable<proLibManageSys.Models.IssuedBooks>
+@model IEnumerable<proLibManageSys.ViewModels.IssuedBookViewModel>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
+<div class="modal fade" id="successModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title">Action</h2>
+			</div>
+			<div class="modal-body">
+				<p>Success... Book Returned ! </p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" id="btnOk" onclick="btnOk()">Ok</button>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.books.bookName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.books.authorName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.books.branch)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.books.publications)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.students.studentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.students.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fromDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.toDate)
-        </th>
-        <th></th>
-    </tr>
+			</div>
+		</div>
+	</div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.books.bookName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.books.authorName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.books.branch)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.books.publications)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.students.studentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.students.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fromDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.toDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.issuedId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.issuedId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.issuedId })
-        </td>
-    </tr>
-}
+<div class="modal fade" id="returnModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title">Return</h2>
+			</div>
+			<div class="modal-body">
+				<h3>Confirming Book Return  ?</h3>
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group">
+					<a href="#" id="btnReturn" class="btn btn-primary " style="margin-right:5px"> Yes </a>
 
+					<a href="#" id="btnCancel" class="btn btn-primary "> Cancel </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<table class="table" id="bookTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.bookName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.authorName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.branch)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.publication)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.studentName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.studentEmail)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.fromDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.toDate)
+			</th>
+			<th>Actions</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.bookName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.authorName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.branch)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.publication)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.studentName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.studentEmail)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.fromDate)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.toDate)
+				</td>
+				<td>
+					<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.issuedId }, new { @style = "color:#FFFFFF;" }) </button>
+					<button class="btn btn-primary">@Html.ActionLink("Details", "Details", new { id = item.issuedId }, new { @style = "color:#FFFFFF;" })</button>
+				</td>
+				<td>
+					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.bookId,@item.issuedId)">Return</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
+<input type="hidden" id="selectBookId" />
+<input type="hidden" id="selectIssuedBookId" />
+
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script>
+
+	$(document).ready(function () {
+		$('#bookTable').dataTable();
+
+		$('#btnCancel').click(function () {
+			location.reload();
+		});
+
+		$('#btnOk').click(function () {
+			location.reload();
+		});
+
+		$('#btnReturn').click(function () {
+			var returnBookIdValue = $("#selectBookId").val();
+
+	    $.ajax({
+			type: "POST",
+			url: '@Url.Action("Return")',
+			data: { bookId: returnBookIdValue, issuedBookId: $("#selectIssuedBookId").val()},
+			success: function (result) {
+			  if (result) {
+			    $("#returnModal").modal("hide");
+				$("#selectbookId").val(null);
+				$("#successModal").modal('show');
+			  }
+			  else {
+				alert("something went wrong");
+			  }
+			}
+		});
+		});
+	});
+
+	function Confirm(bookId,issuedBookId) {
+		$("#selectBookId").val(bookId);
+		$("#selectIssuedBookId").val(issuedBookId);
+		$("#returnModal").modal('show');
+	}
+</script>

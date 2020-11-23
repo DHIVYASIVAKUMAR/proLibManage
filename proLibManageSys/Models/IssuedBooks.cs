@@ -21,15 +21,16 @@ namespace proLibManageSys.Models
         public int studentId { get; set; }
 		[ForeignKey("studentId")]
         public Students students { get; set; }
-        
-
-        [Required(ErrorMessage = "please enter in \"dd-mm-yyyy\"this format")]
+       
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
+        [Required]
         [Display(Name = "From date")]
-        public string fromDate { get; set; }
+        public DateTime fromDate { get; set; }
 
-        [Required(ErrorMessage = "please enter in \"dd-mm-yyyy\"this format")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
+        [Required]
         [Display(Name = "To date")]
-        public string toDate { get; set; }
+        public DateTime toDate { get; set; }
 
         
        
