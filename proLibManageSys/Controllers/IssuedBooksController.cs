@@ -76,16 +76,9 @@ namespace proLibManageSys.Controllers
                                           //issuedBook = i
                                       };
 
-            return View(issuedBookViewModel);
-            //         IssuedBooks issuedBooks = db.issuedBook.Find(id);
-            //if (issuedBooks == null)
-            //{
-            //	return HttpNotFound();
-            //}
-            //return View(issuedBooks);
+            return View(issuedBookViewModel.FirstOrDefault());           
         }
-
-        // GET: IssuedBooks/Create
+     
         public ActionResult Create(int id)
         {
             var book = (from books in db.book
@@ -97,24 +90,7 @@ namespace proLibManageSys.Controllers
 
             return View(db.student.ToList());
         }
-
-        // POST: IssuedBooks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "issuedId,issuedBookName,issuedAuthorName,issuedBookBranch,issuedBookPublications,issuedStudentName,issuedStudentEmail,fromDate,toDate")] IssuedBooks issuedBooks)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.issuedBook.Add(issuedBooks);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(issuedBooks);
-        //}
-
+        
         [HttpPost]
         public JsonResult BookIssue(int bookId, int studentId, DateTime fromDate, DateTime toDate) {
 
@@ -142,17 +118,34 @@ namespace proLibManageSys.Controllers
 
         // GET: IssuedBooks/Edit/5
         public ActionResult Edit(int? id)
-        {
+        {            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IssuedBooks issuedBooks = db.issuedBook.Find(id);
-            if (issuedBooks == null)
-            {
-                return HttpNotFound();
-            }
-            return View(issuedBooks);
+
+            var issuedBookViewModel = from i in db.issuedBook
+                                      where i.issuedId == id
+                                      join b in db.book on i.bookId equals b.bookId
+                                      join s in db.student on i.studentId equals s.studentId
+                                      select new IssuedBookViewModel
+                                      {
+                                          bookId = b.bookId,
+                                          bookName = b.bookName,
+                                          authorName = b.authorName,
+                                          branch = b.branch,
+                                          publication = b.publications,
+                                          studentName = s.studentName,
+                                          studentEmail = s.email,
+                                          fromDate = i.fromDate,
+                                          toDate = i.toDate,
+                                          issuedId = i.issuedId
+                                          //book = b,
+                                          //student = s,
+                                          //issuedBook = i
+                                      };
+
+            return View(issuedBookViewModel.FirstOrDefault());
         }
 
         // POST: IssuedBooks/Edit/5
@@ -165,38 +158,12 @@ namespace proLibManageSys.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(issuedBooks).State = EntityState.Modified;
-                db.SaveChanges();
+				db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(issuedBooks);
         }
-
-        //// GET: IssuedBooks/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    IssuedBooks issuedBooks = db.issuedBook.Find(id);
-        //    if (issuedBooks == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(issuedBooks);
-        //}
-
-        //// POST: IssuedBooks/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    IssuedBooks issuedBooks = db.issuedBook.Find(id);
-        //    db.issuedBook.Remove(issuedBooks);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
+       
         [HttpPost]
         public JsonResult Return(int BookId, int IssuedBookId) 
         {

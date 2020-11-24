@@ -11,7 +11,10 @@
 </p>
 <link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
 
 
 <div class="modal fade" id="successModal">
@@ -73,13 +76,14 @@
 			<th>
 				@Html.DisplayNameFor(model => model.isAvailable)
 			</th>
-			<th>actions</th>
+			<th>Edit</th>
+			<th>Details</th>
 			<th>Delete</th>
 			<th>Issues</th>
 		</tr>
 	</thead>
 	<tbody>
-		
+
 
 
 		@foreach (var item in Model)
@@ -104,24 +108,27 @@
 					@Html.DisplayFor(modelItem => item.isAvailable)
 				</td>
 				<td>
-					<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.bookId },new { @style = "color:#FFFFFF;" }) </button>
-					<button class="btn btn-primary">@Html.ActionLink("Details", "Details", new { id = item.bookId }, new { @style = "color:#FFFFFF;" })</button>					
+					<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.bookId }, new { @style = "color:#FFFFFF;" }) </button>
+				</td>
+				<td>
+					<button class="btn btn-primary">@Html.ActionLink("Details", "Details", new { id = item.bookId }, new { @style = "color:#FFFFFF;" })</button>
 				</td>
 				<td>
 					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.bookId)">Delete</a>
 				</td>
 				<td>
 					@if (item.isAvailable)
-					{						
+					{
 						<a href='@Url.Action("Create", "IssuedBooks",new { id = @item.bookId})' class="btn btn-primary">Issue</a>
 					}
-					else { 
-					    <button class="btn btn-primary" id="btnIssue" disabled>Issue</button>
+					else
+					{
+						<button class="btn btn-primary" id="btnIssue" disabled>Issue</button>
 					}
 				</td>
 			</tr>
 		}
-		
+
 	</tbody>
 </table>
 
@@ -166,8 +173,8 @@
 		function Confirm(id) {
 			$("#selectBookId").val(id);
 			$("#deleteModal").modal('show');
-		}	
-		
+		}
+
 	</script>
 }
 
