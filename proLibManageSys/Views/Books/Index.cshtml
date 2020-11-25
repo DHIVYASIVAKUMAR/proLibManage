@@ -9,13 +9,37 @@
 <p>
 	@Html.ActionLink("Create New", "Create")
 </p>
-<link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.2/css/fixedColumns.bootstrap4.min.css" />
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
 
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+<style>
+	thead input {
+		width: 100%;
+	}
 
+	table.dataTable {
+		margin-top: 2em !important;
+		margin-bottom: 2em !important;
+	}
+
+		table.dataTable tbody tr.odd {
+			background-color: lavender !important;
+		}
+
+	 table.dataTable tbody tr.even {
+		background-color: white !important;
+	}
+	table {
+		border: 1px solid black;
+	}
+</style>
 
 <div class="modal fade" id="successModal">
 	<div class="modal-dialog">
@@ -54,93 +78,117 @@
 		</div>
 	</div>
 </div>
-
-<table id="bookTable" class="table">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.bookName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.authorName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.serialNumber)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.branch)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.publications)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.isAvailable)
-			</th>
-			<th>Edit</th>
-			<th>Details</th>
-			<th>Delete</th>
-			<th>Issues</th>
-		</tr>
-	</thead>
-	<tbody>
-
-
-
-		@foreach (var item in Model)
-		{
+<div>
+	<table id="bookTable" class="table">
+		<thead>
 			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.bookName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.authorName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.serialNumber)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.branch)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.publications)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.isAvailable)
-				</td>
-				<td>
-					<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.bookId }, new { @style = "color:#FFFFFF;" }) </button>
-				</td>
-				<td>
-					<button class="btn btn-primary">@Html.ActionLink("Details", "Details", new { id = item.bookId }, new { @style = "color:#FFFFFF;" })</button>
-				</td>
-				<td>
-					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.bookId)">Delete</a>
-				</td>
-				<td>
-					@if (item.isAvailable)
-					{
-						<a href='@Url.Action("Create", "IssuedBooks",new { id = @item.bookId})' class="btn btn-primary">Issue</a>
-					}
-					else
-					{
-						<button class="btn btn-primary" id="btnIssue" disabled>Issue</button>
-					}
-				</td>
+				<th>
+					@Html.DisplayNameFor(model => model.bookName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.authorName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.serialNumber)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.branch)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.publications)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.isAvailable)
+				</th>
+				<th>Edit</th>
+				<th>Details</th>
+				<th>Delete</th>
+				<th>Issues</th>
 			</tr>
-		}
+		</thead>
+		<tbody>
 
-	</tbody>
-</table>
+
+
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.bookName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.authorName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.serialNumber)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.branch)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.publications)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.isAvailable)
+					</td>
+					<td>
+						<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.bookId }, new { @style = "color:#FFFFFF;" }) </button>
+					</td>
+					<td>
+						<button class="btn btn-primary">@Html.ActionLink("Details", "Details", new { id = item.bookId }, new { @style = "color:#FFFFFF;" })</button>
+					</td>
+					<td>
+						<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.bookId)">Delete</a>
+					</td>
+					<td>
+						@if (item.isAvailable)
+						{
+							<a href='@Url.Action("Create", "IssuedBooks",new { id = @item.bookId})' class="btn btn-primary">Issue</a>
+						}
+						else
+						{
+							<button class="btn btn-primary" id="btnIssue" disabled>Issue</button>
+						}
+					</td>
+				</tr>
+			}
+
+		</tbody>
+	</table>
+</div>
+
 
 <input type="hidden" id="selectBookId" />
-
+<style type="text/css">
+	.table th, .table td {
+		text-align: center;
+	}
+</style>
 
 @section scripts{
 	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 	<script>
 
 	$(document).ready(function () {
-		$('#bookTable').dataTable();
+		$('#bookTable thead tr').clone(true).appendTo('#bookTable thead');
+		$('#bookTable thead tr:eq(1) th').each(function (i) {
+			var title = $(this).text();
+			$(this).html('<input type="text"/>');
+
+			$('input', this).on('keyup change', function () {
+				if (table.column(i).search() !== this.value) {
+					table
+						.column(i)
+						.search(this.value)
+						.draw();
+				}
+			});
+		});
+
+		var table = $('#bookTable').DataTable({
+			orderCellsTop: true,
+			fixedHeader: true
+		});
 	});
 		function btnDelete() {
 		var deleteBookIdValue = $("#selectBookId").val();
@@ -177,5 +225,4 @@
 
 	</script>
 }
-
 

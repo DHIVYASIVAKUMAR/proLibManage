@@ -5,7 +5,7 @@
 
 <h2>Create</h2>
 <link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
-
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/
 smoothness/jquery-ui.css">
 
@@ -66,17 +66,17 @@ smoothness/jquery-ui.css">
 	</div>
 </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(new { @class = "form-horizontal" }))
 {
 	@Html.AntiForgeryToken()
 
 	<div class="form-horizontal">
-		<h4>Books</h4>
+		
 		<hr />
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		<div class="form-group">
 			@Html.LabelFor(model => model.book.bookName, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
+			<div class="col-md-3">
 				@Html.EditorFor(model => model.book.bookName, new { htmlAttributes = new { @class = "form-control" } })
 				@Html.ValidationMessageFor(model => model.book.bookName, "", new { @class = "text-danger" })
 			</div>
@@ -84,7 +84,7 @@ smoothness/jquery-ui.css">
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.book.authorName, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
+			<div class="col-md-3">
 				@Html.DropDownListFor(model => model.book.authorName, Model.authors.Select(x => new SelectListItem { Text = x.authorName, Value = x.authorName}).ToList(), "select Author", htmlAttributes: new { @class = "form-control" })
 			    <a href="#" id="showModal" class="btn " onclick="NewAuthor()">Add New Author</a>
 				@Html.ValidationMessageFor(model => model.book.authorName, "", new { @class = "text-danger" })
@@ -93,7 +93,7 @@ smoothness/jquery-ui.css">
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.book.serialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
+			<div class="col-md-3">
 				@Html.EditorFor(model => model.book.serialNumber, new { htmlAttributes = new { @class = "form-control" } })
 				@Html.ValidationMessageFor(model => model.book.serialNumber, "", new { @class = "text-danger" })
 			</div>
@@ -101,7 +101,7 @@ smoothness/jquery-ui.css">
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.book.branch, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
+			<div class="col-md-3">
 				@Html.DropDownListFor(model => model.book.branch,Model.bookBranches.Select(x => new SelectListItem { Text = x.branch,Value = x.branch}).ToList(), "select Branch", htmlAttributes: new { @class = "form-control" })
 				<a href="#" id="showModal" class="btn " onclick="NewBranch()">Add New Branch</a>
 				@Html.ValidationMessageFor(model => model.book.branch, "", new { @class = "text-danger" })
@@ -110,7 +110,7 @@ smoothness/jquery-ui.css">
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.book.publications, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
+			<div class="col-md-3">
 				@Html.DropDownListFor(model => model.book.publications, Model.bookPublications.Select(x => new SelectListItem { Text = x.publications,Value = x.publications}).ToList(), "select Publications", htmlAttributes: new { @class = "form-control" })
 				<a href="#" id="showModal" class="btn " onclick="NewPublication()">Add New Publication</a>
 				@Html.ValidationMessageFor(model => model.book.publications, "", new { @class = "text-danger" })
@@ -119,7 +119,7 @@ smoothness/jquery-ui.css">
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.book.isAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
+			<div class="col-md-3">
 				<div class="checkbox">
 					@Html.EditorFor(model => model.book.isAvailable)
 					@Html.ValidationMessageFor(model => model.book.isAvailable, "", new { @class = "text-danger" })
@@ -128,7 +128,7 @@ smoothness/jquery-ui.css">
 		</div>
 
 		<div class="form-group">
-			<div class="col-md-offset-2 col-md-10">
+			<div class="col-md-offset-2 col-md-3">
 				<input type="submit" value="Create" class="btn btn-default" />
 			</div>
 		</div>

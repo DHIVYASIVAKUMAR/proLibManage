@@ -22,7 +22,7 @@ namespace proLibManageSys.Models
 		[ForeignKey("studentId")]
         public Students students { get; set; }
        
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         [Required]
         [Display(Name = "From date")]
         public DateTime fromDate { get; set; }

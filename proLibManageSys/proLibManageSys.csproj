@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202011230748086_forthCreate.Designer.cs">
       <DependentUpon>202011230748086_forthCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011240952387_forthCreate1.cs" />
+    <Compile Include="Migrations\202011240952387_forthCreate1.Designer.cs">
+      <DependentUpon>202011240952387_forthCreate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Identity\202011050613499_InitialIdentity.cs" />
     <Compile Include="Migrations\Identity\202011050613499_InitialIdentity.Designer.cs">
@@ -317,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011230748086_forthCreate.resx">
       <DependentUpon>202011230748086_forthCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011240952387_forthCreate1.resx">
+      <DependentUpon>202011240952387_forthCreate1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Identity\202011050613499_InitialIdentity.resx">
       <DependentUpon>202011050613499_InitialIdentity.cs</DependentUpon>

@@ -79,6 +79,8 @@
 	<tbody>
 		@foreach (var item in Model)
 		{
+			var fromDate = item.fromDate.ToShortDateString();
+			var toDate = item.toDate.ToShortDateString();
 			<tr>
 				<td>
 					@Html.DisplayFor(modelItem => item.bookName)
@@ -99,10 +101,10 @@
 					@Html.DisplayFor(modelItem => item.studentEmail)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.fromDate)
+					@Html.DisplayFor(modelItem => fromDate)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.toDate)
+					@Html.DisplayFor(modelItem => toDate)
 				</td>
 				<td>
 					<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.issuedId }, new { @style = "color:#FFFFFF;" })</button>
