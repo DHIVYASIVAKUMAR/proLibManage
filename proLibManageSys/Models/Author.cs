@@ -34,7 +34,6 @@ namespace proLibManageSys.Models
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int bookPublicationId { get; set; }
-
 		
 		[Required(ErrorMessage = "please enter Publications")]
 		[Display(Name = "Publications")]

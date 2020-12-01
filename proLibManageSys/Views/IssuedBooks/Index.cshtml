@@ -1,6 +1,5 @@
 ﻿
 @model IEnumerable<proLibManageSys.ViewModels.IssuedBookViewModel>
-
 @{
 	ViewBag.Title = "Index";
 }
@@ -18,7 +17,6 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" id="btnOk" onclick="btnOk()">Ok</button>
-
 			</div>
 		</div>
 	</div>
@@ -36,7 +34,6 @@
 			<div class="modal-footer">
 				<div class="btn-group">
 					<a href="#" id="btnReturn" class="btn btn-primary " style="margin-right:5px"> Yes </a>
-
 					<a href="#" id="btnCancel" class="btn btn-primary "> Cancel </a>
 				</div>
 			</div>
@@ -44,32 +41,32 @@
 	</div>
 </div>
 
-<table class="table" id="bookTable">
+<table class="table " id="bookTable">
 	<thead>
 		<tr>
 			<th>
-				@Html.DisplayNameFor(model => model.bookName)
+				@Html.DisplayName("Book Name")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.authorName)
+				@Html.DisplayName("Author Name")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.branch)
+				@Html.DisplayName("Branch")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.publication)
+				@Html.DisplayName("Publication")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.studentName)
+				@Html.DisplayName("Student")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.studentEmail)
+				@Html.DisplayName("Email")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.fromDate)
+				@Html.DisplayName("From Date")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.toDate)
+				@Html.DisplayName("To Date")
 			</th>
 			<th>Actions</th>
 			<th>Details</th>
@@ -78,9 +75,7 @@
 	</thead>
 	<tbody>
 		@foreach (var item in Model)
-		{
-			var fromDate = item.fromDate.ToShortDateString();
-			var toDate = item.toDate.ToShortDateString();
+		{	
 			<tr>
 				<td>
 					@Html.DisplayFor(modelItem => item.bookName)
@@ -101,10 +96,10 @@
 					@Html.DisplayFor(modelItem => item.studentEmail)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => fromDate)
+					@Html.DisplayFor(modelItem => item.displayFromDate)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => toDate)
+					@Html.DisplayFor(modelItem => item.displayToDate)
 				</td>
 				<td>
 					<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.issuedId }, new { @style = "color:#FFFFFF;" })</button>
@@ -124,7 +119,6 @@
 
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script>
-
 	$(document).ready(function () {
 		$('#bookTable').dataTable();
 
@@ -156,7 +150,6 @@
 		});
 		});
 	});
-
 	function Confirm(bookId,issuedBookId) {
 		$("#selectBookId").val(bookId);
 		$("#selectIssuedBookId").val(issuedBookId);

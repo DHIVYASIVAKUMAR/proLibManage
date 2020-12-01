@@ -1,16 +1,13 @@
 ﻿@model proLibManageSys.ViewModels.IssuedBookViewModel
-
 @{
 	ViewBag.Title = "Edit";
 }
 
 <h2>Edit</h2>
 
-
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()
-
 	<div class="form-horizontal">
 		<h4>IssuedBooks</h4>
 		<hr />
@@ -60,7 +57,6 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.studentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-
 				@Html.EditorFor(model => model.studentEmail, new { htmlAttributes = new { @class = "form-control" } })
 				@Html.ValidationMessageFor(model => model.studentEmail, "", new { @class = "text-danger" })
 			</div>
@@ -68,8 +64,7 @@
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.fromDate, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">				
-				@*<input type="date" id="fromDate" />*@
+			<div class="col-md-10">
 				@Html.EditorFor(model => model.fromDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
 				@Html.ValidationMessageFor(model => model.fromDate, "", new { @class = "text-danger" })
 			</div>
@@ -78,7 +73,6 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.toDate, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@*<input type="date" id="fromDate" />*@
 				@Html.EditorFor(model => model.toDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
 				@Html.ValidationMessageFor(model => model.toDate, "", new { @class = "text-danger" })
 			</div>
@@ -98,7 +92,5 @@
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")
-
-@Scripts.Render("~/bundles/jqueryval")
 }
 

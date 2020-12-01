@@ -31,7 +31,6 @@ namespace proLibManageSys.Models
         [Display(Name = "Publications")]
         public string publications { get; set; }
 
-        public bool isAvailable { get; set; }
-       // public virtual ICollection<IssuedBooks> issuedBooks { get; set; }
+        public bool isAvailable { get; set; }      
     }
 }

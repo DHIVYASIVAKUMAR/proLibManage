@@ -15,14 +15,11 @@ namespace proLibManageSys.Controllers
     public class StudentsController : Controller
     {
         private ModelsContext db = new ModelsContext();
-
-        // GET: Students
         public ActionResult Index()
         {
             return View(db.student.ToList());
         }
-        
-        // GET: Students/Details/5
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,7 +34,6 @@ namespace proLibManageSys.Controllers
             return View(students);
         }
 
-        // GET: Students/Create
         public ActionResult Create()
         {
             StudentViewModel studentViewModel = new StudentViewModel();
@@ -45,9 +41,6 @@ namespace proLibManageSys.Controllers
             return View(studentViewModel);
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(StudentViewModel studentObj)
@@ -58,11 +51,9 @@ namespace proLibManageSys.Controllers
                 db.SaveChanges();
 				return RedirectToAction("Index");
             }
-
             return View(studentObj);
         }
 
-        // GET: Students/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,9 +68,6 @@ namespace proLibManageSys.Controllers
             return View(students);
         }
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "studentId,studentName,studentBranch,gender,phoneNumber,address,city,email,password")] Students students)
@@ -93,31 +81,6 @@ namespace proLibManageSys.Controllers
             return View(students);
         }
 
-        // GET: Students/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Students students = db.student.Find(id);
-        //    if (students == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(students);
-        //}
-
-        //// POST: Students/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Students students = db.student.Find(id);
-        //    db.student.Remove(students);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
         [HttpPost]
         public JsonResult Delete(int id)
         {
@@ -130,7 +93,6 @@ namespace proLibManageSys.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public JsonResult AddBranch(string name) 

@@ -18,7 +18,8 @@ namespace proLibManageSys.ViewModels
 		public DateTime fromDate { get; set; }
 		public DateTime toDate { get; set; }
 		public int issuedId { get; set; }
-
+		public string displayFromDate { get; set; }
+		public string displayToDate { get; set; }
 		//public Books book { get; set; }
 		//public Students student { get; set; }
 		//public IssuedBooks issuedBook { get; set; }

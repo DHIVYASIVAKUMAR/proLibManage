@@ -2,13 +2,23 @@
 @{
 	ViewBag.Title = "Create";
 }
+<center><h2 style="
+    margin-top: 40px;
+    padding-left: 35px;
+    margin-bottom: 0px;">
+	Add New Book
+</h2></center>
 
-<h2>Create</h2>
 <link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/
-smoothness/jquery-ui.css">
-
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<link href="~/Content/Books/BookIndex.css" rel="stylesheet" />
+<link href="~/Content/Books/BookCreate.css" rel="stylesheet" />
+<style>
+	a {
+	 color:white;
+	}
+</style>
 <div class="modal fade" id="newAuthorModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -22,7 +32,6 @@ smoothness/jquery-ui.css">
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" id="btnOk" style="margin-right:5px" onclick="addName()">Add</button>
 				<a href="#" id="btnCancel" class="btn btn-primary " onclick="cancelName()"> Cancel </a>
-
 			</div>
 		</div>
 	</div>
@@ -41,7 +50,6 @@ smoothness/jquery-ui.css">
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" id="btnOk" style="margin-right:5px" onclick="addBranch()">Add</button>
 				<a href="#" id="btnCancel" class="btn btn-primary " onclick="cancelBranch()"> Cancel </a>
-
 			</div>
 		</div>
 	</div>
@@ -60,83 +68,119 @@ smoothness/jquery-ui.css">
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" id="btnOk" style="margin-right:5px" onclick="addPublication()">Add</button>
 				<a href="#" id="btnCancel" class="btn btn-primary " onclick="cancelPublication()"> Cancel </a>
-
 			</div>
 		</div>
 	</div>
 </div>
 
-@using (Html.BeginForm(new { @class = "form-horizontal" }))
-{
-	@Html.AntiForgeryToken()
-
-	<div class="form-horizontal">
-		
-		<hr />
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-		<div class="form-group">
-			@Html.LabelFor(model => model.book.bookName, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-3">
-				@Html.EditorFor(model => model.book.bookName, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.book.bookName, "", new { @class = "text-danger" })
+<div id="createFormId">
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+		<div class="form-horizontal" style="padding-top:50px">
+			<hr />
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+			<div class="form-group">
+				@Html.LabelFor(model => model.book.bookName, htmlAttributes: new { @class = "control-label col-md-5" })
+				<div class="col-md-7">
+					@Html.EditorFor(model => model.book.bookName, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.book.bookName, "", new { @class = "text-danger" })
+				</div>
 			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.book.authorName, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-3">
-				@Html.DropDownListFor(model => model.book.authorName, Model.authors.Select(x => new SelectListItem { Text = x.authorName, Value = x.authorName}).ToList(), "select Author", htmlAttributes: new { @class = "form-control" })
-			    <a href="#" id="showModal" class="btn " onclick="NewAuthor()">Add New Author</a>
-				@Html.ValidationMessageFor(model => model.book.authorName, "", new { @class = "text-danger" })
+			<div class="form-group">
+				@Html.LabelFor(model => model.book.authorName, htmlAttributes: new { @class = "control-label col-md-5" })
+				<div class="col-md-7">
+					<table class="table-borderless">
+						<tr>
+							<td style="width : 280px">
+								@Html.DropDownListFor(model => model.book.authorName, Model.authors.Select(x => new SelectListItem { Text = x.authorName, Value = x.authorName }).ToList(), "select Author", htmlAttributes: new { @class = "form-control" })
+							</td>
+							<td>
+								<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="NewAuthor()">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"></path>
+										<path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"></path>
+									</svg>
+								</button>
+							</td>
+						</tr>
+					</table>
+					@Html.ValidationMessageFor(model => model.book.authorName, "", new { @class = "text-danger" })
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			@Html.LabelFor(model => model.book.serialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-3">
-				@Html.EditorFor(model => model.book.serialNumber, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.book.serialNumber, "", new { @class = "text-danger" })
+			<div class="form-group">
+				@Html.LabelFor(model => model.book.serialNumber, htmlAttributes: new { @class = "control-label col-md-5" })
+				<div class="col-md-7">
+					@Html.EditorFor(model => model.book.serialNumber, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.book.serialNumber, "", new { @class = "text-danger" })
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			@Html.LabelFor(model => model.book.branch, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-3">
-				@Html.DropDownListFor(model => model.book.branch,Model.bookBranches.Select(x => new SelectListItem { Text = x.branch,Value = x.branch}).ToList(), "select Branch", htmlAttributes: new { @class = "form-control" })
-				<a href="#" id="showModal" class="btn " onclick="NewBranch()">Add New Branch</a>
-				@Html.ValidationMessageFor(model => model.book.branch, "", new { @class = "text-danger" })
+			<div class="form-group">
+				@Html.LabelFor(model => model.book.branch, htmlAttributes: new { @class = "control-label col-md-5" })
+				<div class="col-md-7">
+					<table class="table-borderless">
+						<tr>
+							<td style="width : 280px">
+								@Html.DropDownListFor(model => model.book.branch, Model.bookBranches.Select(x => new SelectListItem { Text = x.branch, Value = x.branch }).ToList(), "select Branch", htmlAttributes: new { @class = "form-control" })
+							</td>
+							<td>
+								<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick=" NewBranch()">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"></path>
+										<path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"></path>
+									</svg>
+								</button>
+							</td>
+						</tr>
+					</table>
+					@Html.ValidationMessageFor(model => model.book.branch, "", new { @class = "text-danger" })
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			@Html.LabelFor(model => model.book.publications, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-3">
-				@Html.DropDownListFor(model => model.book.publications, Model.bookPublications.Select(x => new SelectListItem { Text = x.publications,Value = x.publications}).ToList(), "select Publications", htmlAttributes: new { @class = "form-control" })
-				<a href="#" id="showModal" class="btn " onclick="NewPublication()">Add New Publication</a>
-				@Html.ValidationMessageFor(model => model.book.publications, "", new { @class = "text-danger" })
+			<div class="form-group">
+				@Html.LabelFor(model => model.book.publications, htmlAttributes: new { @class = "control-label col-md-5" })
+				<div class="col-md-7">
+					<table class="table-borderless">
+						<tr>
+							<td style="width : 280px">
+								@Html.DropDownListFor(model => model.book.publications, Model.bookPublications.Select(x => new SelectListItem { Text = x.publications, Value = x.publications }).ToList(), "select Publications", htmlAttributes: new { @class = "form-control" })
+							</td>
+							<td>
+								<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="NewPublication()">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"></path>
+										<path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"></path>
+									</svg>
+								</button>
+							</td>
+						</tr>
+					</table>
+					@Html.ValidationMessageFor(model => model.book.publications, "", new { @class = "text-danger" })
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			@Html.LabelFor(model => model.book.isAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-3">
-				<div class="checkbox">
-					@Html.EditorFor(model => model.book.isAvailable)
-					@Html.ValidationMessageFor(model => model.book.isAvailable, "", new { @class = "text-danger" })
+			<div class="form-group">
+				@Html.LabelFor(model => model.book.isAvailable, " Is Available",htmlAttributes: new { @class = "control-label col-md-5" })
+				<div class="col-md-7">
+					<div class="checkbox">
+						@Html.EditorFor(model => model.book.isAvailable)
+						@Html.ValidationMessageFor(model => model.book.isAvailable, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-offset-6 col-md-7">
+					<input type="submit" value="Create" class="btn btn-primary" />
 				</div>
 			</div>
 		</div>
-
-		<div class="form-group">
-			<div class="col-md-offset-2 col-md-3">
-				<input type="submit" value="Create" class="btn btn-default" />
-			</div>
-		</div>
+	}
+	<div>
+		<button class="btn btn-primary">@Html.ActionLink("Back to List", "Index",new { @style = "color:#FFFFFF;" })</button>
 	</div>
-}
-
-<div>
-	@Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
@@ -145,25 +189,10 @@ smoothness/jquery-ui.css">
 		function NewAuthor() {
 			$("#newAuthorModal").modal('show');
 		}
-		function NewBranch() {
-			$("#newBranchModal").modal('show');
-		}
-		function NewPublication() {
-			$("#newPublicationModal").modal('show');
-		}
-
-
 		function cancelName() {
 			$("#newAuthorModal").modal('hide');
 		}
-		function cancelBranch() {
-			$("#newBranchModal").modal('hide');
-		}
-		function cancelPublication() {
-			$("#newPublicationModal").modal('hide');
-		}
-
-		function addName() {
+        function addName() {
 			var newAuthorName = $("#newAuthorTextBox").val();
 			$.ajax({
 			    type: "POST",
@@ -181,6 +210,12 @@ smoothness/jquery-ui.css">
 			});
 		}
 
+		function NewBranch() {
+			$("#newBranchModal").modal('show');
+		}
+		function cancelBranch() {
+			$("#newBranchModal").modal('hide');
+		}
 		function addBranch() {
 			var newBranchName = $("#newBranchTextBox").val();
 			$.ajax({
@@ -200,6 +235,12 @@ smoothness/jquery-ui.css">
 			});
 		}
 
+		function NewPublication() {
+			$("#newPublicationModal").modal('show');
+		}
+		function cancelPublication() {
+			$("#newPublicationModal").modal('hide');
+		}
 		function addPublication() {
 			var newPublicationName = $("#newPublicationTextBox").val();
 			$.ajax({
@@ -217,8 +258,5 @@ smoothness/jquery-ui.css">
 				}
 			});
 		}
-
 	</script>
-
-
 }

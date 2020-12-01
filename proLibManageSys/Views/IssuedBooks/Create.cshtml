@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<proLibManageSys.Models.Students>
-
 @{
 	ViewBag.Title = "Index";
 }
@@ -7,7 +6,6 @@
 <h2>Book Issue</h2>
 
 <link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
-
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
 <div class="modal fade" id="successModal">
@@ -19,8 +17,7 @@
 			<div class="modal-body">
 				<h2> Issued Success !</h2>
 			</div>
-			<div class="modal-footer">
-				
+			<div class="modal-footer">				
 				<button class="btn btn-primary">@Html.ActionLink("OK", "Index", "Books", new { @style = "color:#FFFFFF;" })</button>
 				<button type="button" id="btnOk" class="btn btn-default">Ok</button>
 			</div>
@@ -48,8 +45,7 @@
 				</div>
 				<h3>Do you Want To Issue this Book ? </h3>
 			</div>
-			<div class="modal-footer">
-				
+			<div class="modal-footer">				
 				<button class="btn btn-primary" id="btnIssue">Issue</button>
 				<button class="btn btn-primary" id="btnCancel">Cancel</button>
 			</div>
@@ -74,9 +70,7 @@
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.email)
-			</th>
-			
-			
+			</th>		
 			<th>Select</th>
 		</tr>
 	</thead>
@@ -98,14 +92,11 @@
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.email)
-				</td>
-				
-				
+				</td>			
 				<td>
 					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.studentId)">Select</a>
 				</td>
 			</tr>
-
 		}
 	</tbody>
 </table>
@@ -152,13 +143,10 @@
 				});
 			});
 		});
-
 		function Confirm(id) {
 			$('#selectStudentId').val(id);
 			$('#issueModal').modal('show');
 		}
-
 	</script>
-
 }
 

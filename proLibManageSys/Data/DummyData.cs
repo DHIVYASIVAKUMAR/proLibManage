@@ -37,53 +37,7 @@ namespace proLibManageSys.Data
 					isAvailable = true
 				}
 			};
-
 			return book;
 		}
-		/*
-
-		public static List<Students> GetStudentDetails()
-		{
-			List<Students> student = new List<Students>()
-			{
-				new Students(){ 
-					studentName = "Dhivya",
-					studentBranch = "CSE",
-					gender = "Female", 
-					phoneNumber = "9988776655",
-					address = "123,new street",
-					city = "chennai",
-					email = "abcdef@gmail.com",
-					password  = "abcdef"
-				},
-				new Students(){
-					studentName = "Mike",
-					studentBranch = "IT",
-					gender = "Male", 
-					phoneNumber = "9888765432",
-					address = "456,old street",
-					city = "chennai",
-					email = "ghijkl@gmail.com",
-					password  = "ghijkl"
-				}
-			};
-
-			return student;
-		}
-		public static List<IssuedBooks> GetIssuedBooks()
-		{
-			List<IssuedBooks> issuedBook = new List<IssuedBooks>()
-			{
-
-				new IssuedBooks(){
-					bookId=1,
-					studentId=1,
-					fromDate="01-11-2020",
-					toDate="15-11-2020"
-				}
-			};
-
-			return issuedBook;
-		}*/
 	}
 }

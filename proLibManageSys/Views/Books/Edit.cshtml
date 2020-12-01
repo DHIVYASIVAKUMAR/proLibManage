@@ -1,16 +1,13 @@
 ﻿@model proLibManageSys.Models.Books
-
 @{
     ViewBag.Title = "Edit";
 }
-
 <h2>Edit</h2>
 
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
+    @Html.AntiForgeryToken()    
     <div class="form-horizontal">
         <h4>Books</h4>
         <hr />
@@ -79,9 +76,6 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script>
-    function succ
-</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

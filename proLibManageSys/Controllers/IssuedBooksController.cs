@@ -19,11 +19,10 @@ namespace proLibManageSys.Controllers
         List<Books> book = new List<Books>();
         List<Students> student = new List<Students>();
         List<IssuedBooks> issuedBooks = new List<IssuedBooks>();
-
-        // GET: IssuedBooks
+       
         public ActionResult Index()
         {
-            var issuedBookViewModel = from i in db.issuedBook
+            var issuedBookViewModel = (from i in db.issuedBook
                                       join b in db.book on i.bookId equals b.bookId
                                       join s in db.student on i.studentId equals s.studentId
                                       select new IssuedBookViewModel
@@ -35,26 +34,37 @@ namespace proLibManageSys.Controllers
                                           publication = b.publications,
                                           studentName = s.studentName,
                                           studentEmail = s.email,
-                                          fromDate = i.fromDate,
-                                          toDate = i.toDate,
+                                         fromDate = i.fromDate,
+                                         toDate = i.toDate,
                                           issuedId = i.issuedId
                                           //book = b,
                                           //student = s,
                                           //issuedBook = i
-                                      };
+                                      }).ToList();
+
+            var result = issuedBookViewModel.Select(x => new IssuedBookViewModel
+            {
+                bookId = x.bookId,
+                bookName = x.bookName,
+                authorName = x.authorName,
+                branch = x.branch,
+                publication = x.publication,
+                studentName = x.studentName,
+                studentEmail = x.studentEmail,
+                displayToDate = x.toDate.ToString("MM/dd/yyyy"),
+                displayFromDate = x.fromDate.ToString("MM/dd/yyyy"),
+                issuedId = x.issuedId
+            }).ToList();
             
-            return View(issuedBookViewModel);
+            return View(result);
         }
 
-        // GET: IssuedBooks/Details/5
         public ActionResult Details(int? id)
         {
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             var issuedBookViewModel = from i in db.issuedBook
                                       where i.issuedId == id
                                       join b in db.book on i.bookId equals b.bookId
@@ -75,7 +85,6 @@ namespace proLibManageSys.Controllers
                                           //student = s,
                                           //issuedBook = i
                                       };
-
             return View(issuedBookViewModel.FirstOrDefault());           
         }
      
@@ -93,7 +102,6 @@ namespace proLibManageSys.Controllers
         
         [HttpPost]
         public JsonResult BookIssue(int bookId, int studentId, DateTime fromDate, DateTime toDate) {
-
             var issuedBook = new IssuedBooks();
             issuedBook.bookId = bookId;
             issuedBook.studentId = studentId;
@@ -116,14 +124,12 @@ namespace proLibManageSys.Controllers
             }
         }
 
-        // GET: IssuedBooks/Edit/5
         public ActionResult Edit(int? id)
         {            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             var issuedBookViewModel = from i in db.issuedBook
                                       where i.issuedId == id
                                       join b in db.book on i.bookId equals b.bookId
@@ -148,9 +154,6 @@ namespace proLibManageSys.Controllers
             return View(issuedBookViewModel.FirstOrDefault());
         }
 
-        // POST: IssuedBooks/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "issuedId,issuedBookName,issuedAuthorName,issuedBookBranch,issuedBookPublications,issuedStudentName,issuedStudentEmail,fromDate,toDate")] IssuedBooks issuedBooks)

@@ -223,11 +223,14 @@
     <Content Include="App_Data\aspnet-proLibManageSys-20201103125747_log.ldf">
       <DependentUpon>aspnet-proLibManageSys-20201103125747.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Books\BookCreate.css" />
+    <Content Include="Content\Books\BookIndex.css" />
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Navbar\NavBar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

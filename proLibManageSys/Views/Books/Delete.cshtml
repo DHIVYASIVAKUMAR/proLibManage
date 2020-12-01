@@ -1,5 +1,4 @@
 ﻿@model proLibManageSys.Models.Books
-
 @{
     ViewBag.Title = "Delete";
 }
@@ -14,56 +13,43 @@
         <dt>
             @Html.DisplayNameFor(model => model.bookName)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.bookName)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.authorName)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.authorName)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.serialNumber)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.serialNumber)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.branch)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.branch)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.publications)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.publications)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.isAvailable)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.isAvailable)
         </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")

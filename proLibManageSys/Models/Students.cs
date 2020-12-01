@@ -51,7 +51,6 @@ namespace proLibManageSys.Models
         [DataType(DataType.Password)]
         public string password { get; set; }
 
-        //public virtual ICollection<IssuedBooks> issuedBooks { get; set; }
     }
     public enum Gender { 
      Female,

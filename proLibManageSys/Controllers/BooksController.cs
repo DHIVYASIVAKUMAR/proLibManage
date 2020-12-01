@@ -15,14 +15,12 @@ namespace proLibManageSys.Controllers
     public class BooksController : Controller
     {
         private ModelsContext db = new ModelsContext();
-
-        // GET: Books
+        
         public ActionResult Index()
         {
 			return View(db.book.ToList());
         }
-
-        // GET: Books/Details/5
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,22 +35,15 @@ namespace proLibManageSys.Controllers
             return View(books);
         }
 
-        // GET: Books/Create
         public ActionResult Create()
         {
             BooksViewModel booksViewModel = new BooksViewModel();
 
             booksViewModel.authors = db.author.ToList();
-                // db.author.Select(x => new SelectListItem { Text = x.authorName, Value = x.authorName }).ToList();
             booksViewModel.bookBranches = db.bookBranch.ToList();
-            booksViewModel.bookPublications = db.bookPublication.ToList();          
-            
+            booksViewModel.bookPublications = db.bookPublication.ToList();         
             return View(booksViewModel);
         }
-
-        // POST: Books/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,11 +55,9 @@ namespace proLibManageSys.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(books);
         }
 
-        // GET: Books/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,9 +72,6 @@ namespace proLibManageSys.Controllers
             return View(books);
         }
 
-        // POST: Books/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "bookId,bookName,authorName,serialNumber,branch,publications,isAvailable")] Books books)
@@ -123,6 +109,7 @@ namespace proLibManageSys.Controllers
 			db.SaveChanges();
             return Json(new { result = "success"});
         }
+
         [HttpPost]
         public JsonResult AddBranch(string name)
         {
@@ -132,6 +119,7 @@ namespace proLibManageSys.Controllers
             db.SaveChanges();
             return Json(new { result = "success" });
         }
+
         [HttpPost]
         public JsonResult AddPublication(string name)
         {
@@ -141,6 +129,7 @@ namespace proLibManageSys.Controllers
             db.SaveChanges();
             return Json(new { result = "success" });
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
