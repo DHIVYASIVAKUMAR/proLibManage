@@ -2,79 +2,91 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Students</h4>
-    <hr />
+<center><h2> Student Detail</h2></center>
+<style>
+	a, a:hover {
+	   color:white;
+    }
+	.details {
+	   padding-left:400px;
+    }
+	h2 {
+	  padding-bottom:50px;
+    }
+	dd a ,dd a:hover{
+	  color:dodgerblue;
+    }
+    dd,dt{
+	   font-size:20px;
+       padding-bottom:11px;
+	}
+	dl dd {
+	   padding-left:20px;
+    }
+</style>
+<div class="details">   
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.studentName)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.studentName)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.studentBranch)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.studentBranch)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.gender)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.gender)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.phoneNumber)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.phoneNumber)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.address)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.address)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.city)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.city)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.email)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.email)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.password)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.password)
         </dd>
     </dl>
 </div>
-<p>
+@*<p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.studentId }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
+<table class="details">
+	<tr>		
+		<td style="padding-left: 500px;padding-right: 15px;">
+		     <button class="btn btn-primary">@Html.ActionLink("Back to List", "Index", new { @style = "color:#FFFFFF;" })</button>
+		</td>
+		<td>
+			<button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { @style = "color:#FFFFFF;" })</button>
+		</td>
+	</tr>
+</table>

@@ -4,9 +4,7 @@
 }
 
 <center><h2>List of Books</h2></center>
-<p>
-	@Html.ActionLink("Create New", "Create", new { @class = "btn btn-primary", @style = "color:white" })
-</p>
+
 <div>
 	<button class="btn btn-primary">@Html.ActionLink("Create New", "Create")</button>
 </div>
@@ -51,7 +49,7 @@
 	#bookTable_length {
 		padding-bottom: 15px;
 	}
-	a {
+	a , a:hover {
 		color:white;
 	}
 </style>

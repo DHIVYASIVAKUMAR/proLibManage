@@ -2,11 +2,48 @@
 @{
 	ViewBag.Title = "Index";
 }
+<center><h2>Book Issue</h2></center>
 
-<h2>Book Issue</h2>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Books/BookCreate.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.2/css/fixedColumns.bootstrap4.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
+<style type="text/css">
+	thead input {
+		width: 100%;
+	}
 
-<link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+	table.dataTable {
+		margin-top: 2em !important;
+		margin-bottom: 2em !important;
+	}
+
+		table.dataTable tbody tr.odd {
+			background-color: lavender !important;
+		}
+
+		table.dataTable tbody tr.even {
+			background-color: white !important;
+		}
+
+	.table th, .table td {
+		text-align: center;
+	}
+
+	#studentTable {
+		width: 100% !important;
+		border: 1px solid black;
+	}
+
+	#studentTable_wrapper {
+		padding-top: 20px;
+	}
+
+	#studentTable_length {
+		padding-bottom: 15px;
+	}	
+</style>
 
 <div class="modal fade" id="successModal">
 	<div class="modal-dialog">
@@ -17,7 +54,7 @@
 			<div class="modal-body">
 				<h2> Issued Success !</h2>
 			</div>
-			<div class="modal-footer">				
+			<div class="modal-footer">
 				<button class="btn btn-primary">@Html.ActionLink("OK", "Index", "Books", new { @style = "color:#FFFFFF;" })</button>
 				<button type="button" id="btnOk" class="btn btn-default">Ok</button>
 			</div>
@@ -37,7 +74,7 @@
 					<hr />
 					<label>Author Name:</label>  @ViewBag.authorName
 					<hr />
-					<label>From date : </label>					
+					<label>From date : </label>
 					<input type="date" id="fromDate" />
 					<hr />
 					<label>To date : </label>
@@ -45,61 +82,64 @@
 				</div>
 				<h3>Do you Want To Issue this Book ? </h3>
 			</div>
-			<div class="modal-footer">				
+			<div class="modal-footer">
 				<button class="btn btn-primary" id="btnIssue">Issue</button>
 				<button class="btn btn-primary" id="btnCancel">Cancel</button>
 			</div>
 		</div>
 	</div>
 </div>
-
-<table class="table" id="studentTable">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.studentName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.studentBranch)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.gender)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.phoneNumber)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.email)
-			</th>		
-			<th>Select</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
+<div>
+	<table class="table display table-condensed" id="studentTable">
+		<thead>
 			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.studentName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.studentBranch)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.gender)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.phoneNumber)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.email)
-				</td>			
-				<td>
-					<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.studentId)">Select</a>
-				</td>
+				<th>
+					@Html.DisplayNameFor(model => model.studentName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.studentBranch)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.gender)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.phoneNumber)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.email)
+				</th>
+				<th>Select</th>
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.studentName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.studentBranch)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.gender)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.phoneNumber)
+					</td>
+					<td class="email">
+						@Html.DisplayFor(modelItem => item.email)
+					</td>
+					<td>
+						<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.studentId)">Select</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+
 
 <input type="hidden" id="selectStudentId" />
 
@@ -107,7 +147,30 @@
 	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 	<script>
 		$(document).ready(function () {
-			$('#studentTable').dataTable();
+			$('#studentTable thead tr').clone(true).appendTo('#studentTable thead');
+			$('#studentTable thead tr:eq(1) th').each(function (i) {
+				var title = $(this).text();
+				if (title != "Select") {
+					$(this).html('<input type="text" class="fas" placeholder="&#xf0b0; filter">');
+					$('input', this).on('keyup change', function () {
+						if (table.column(i).search() !== this.value) {
+							table
+								.column(i)
+								.search(this.value)
+								.draw();
+						}
+					});
+				}
+				else {
+					$(this).html('');
+				}
+			});
+
+			var table = $('#studentTable').DataTable({
+				orderCellsTop: true,
+				fixedHeader: true
+			});
+		
 
 			$('#btnOk').click(function () {
 				location.reload();
@@ -117,8 +180,7 @@
 				location.reload();
 			});
 
-			$('#btnIssue').click(function () {			
-				
+			$('#btnIssue').click(function () {
 				var data = {
 					'bookId':@ViewBag.bookId,
 					'studentId': $('#selectStudentId').val(),
