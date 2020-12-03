@@ -30,7 +30,7 @@ namespace proLibManageSys.Models
         [Required(ErrorMessage = "please enter Publications")]
         [Display(Name = "Publications")]
         public string publications { get; set; }
-
+        [Display(Name = "IsAvailable")]
         public bool isAvailable { get; set; }      
     }
 }

@@ -101,17 +101,11 @@ namespace proLibManageSys.Controllers
         }
         
         [HttpPost]
-        public JsonResult BookIssue(int bookId, int studentId, DateTime fromDate, DateTime toDate) {
-            var issuedBook = new IssuedBooks();
-            issuedBook.bookId = bookId;
-            issuedBook.studentId = studentId;
-            issuedBook.fromDate = fromDate;
-            issuedBook.toDate = toDate;
-
-            var Book = db.book.FirstOrDefault(b => b.bookId == bookId);
-            if (issuedBook != null && Book != null)
+        public JsonResult BookIssue(IssuedBooks issuedBooks){
+			var Book = db.book.FirstOrDefault(b => b.bookId == issuedBooks.bookId);
+            if (issuedBooks != null && Book != null)
             {
-                db.issuedBook.Add(issuedBook);
+                db.issuedBook.Add(issuedBooks);
                 db.SaveChanges();
                 Book.isAvailable = false;
 
