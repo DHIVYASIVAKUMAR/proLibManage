@@ -119,12 +119,12 @@ namespace proLibManageSys.Controllers
         }
 
         public ActionResult Edit(int? id)
-        {            
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var issuedBookViewModel = from i in db.issuedBook
+            var issuedBookViewModel = (from i in db.issuedBook
                                       where i.issuedId == id
                                       join b in db.book on i.bookId equals b.bookId
                                       join s in db.student on i.studentId equals s.studentId
@@ -143,24 +143,57 @@ namespace proLibManageSys.Controllers
                                           //book = b,
                                           //student = s,
                                           //issuedBook = i
-                                      };
+                                      }).ToList();
+            var result = issuedBookViewModel.Select(x => new IssuedBookViewModel
+            {
+                bookId = x.bookId,
+                bookName = x.bookName,
+                authorName = x.authorName,
+                branch = x.branch,
+                publication = x.publication,
+                studentName = x.studentName,
+                studentEmail = x.studentEmail,
+                displayToDate = x.toDate.ToString("MM/dd/yyyy"),
+                displayFromDate = x.fromDate.ToString("MM/dd/yyyy"),
+                issuedId = x.issuedId
+            }).ToList();
 
-            return View(issuedBookViewModel.FirstOrDefault());
+           // return View(result);
+            return View(result.FirstOrDefault());
         }
 
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public ActionResult Edit([Bind(Include = "issuedId,issuedBookName,issuedAuthorName,issuedBookBranch,issuedBookPublications,issuedStudentName,issuedStudentEmail,fromDate,toDate")] IssuedBooks issuedBooks)
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            db.Entry(issuedBooks).State = EntityState.Modified;
+        //db.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //        return View(issuedBooks);
+        //    }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "issuedId,issuedBookName,issuedAuthorName,issuedBookBranch,issuedBookPublications,issuedStudentName,issuedStudentEmail,fromDate,toDate")] IssuedBooks issuedBooks)
+        public ActionResult Edit( IssuedBookViewModel issuedBookViewModel)
         {
             if (ModelState.IsValid)
             {
+                IssuedBooks issuedBooks = db.issuedBook.Find(issuedBookViewModel.issuedId);
+                var fromDate = issuedBookViewModel.displayFromDate;
+                var toDate = issuedBookViewModel.displayToDate;
+                issuedBooks.fromDate = Convert.ToDateTime(fromDate);
+                issuedBooks.toDate = Convert.ToDateTime(toDate);
+
                 db.Entry(issuedBooks).State = EntityState.Modified;
-				db.SaveChanges();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(issuedBooks);
         }
-       
+
+
         [HttpPost]
         public JsonResult Return(int BookId, int IssuedBookId) 
         {

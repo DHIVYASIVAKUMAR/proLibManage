@@ -3,95 +3,119 @@
 	ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<center><h2 style="padding-bottom:50px">Edit Issue Details</h2></center>
+
+<style>
+	a, a:hover {
+		color: white;
+	}
+</style>
 
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()
 	<div class="form-horizontal">
-		<h4>IssuedBooks</h4>
-		<hr />
+
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		@Html.HiddenFor(model => model.issuedId)
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.bookName, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.bookName, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.LabelFor(model => model.bookName, "Book Name", htmlAttributes: new { @class = "control-label col-md-5" })
+			<div class="col-md-7">
+				@Html.EditorFor(model => model.bookName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
 				@Html.ValidationMessageFor(model => model.bookName, "", new { @class = "text-danger" })
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.authorName, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.authorName, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.LabelFor(model => model.authorName, "Author Name", htmlAttributes: new { @class = "control-label col-md-5" })
+			<div class="col-md-7">
+				@Html.EditorFor(model => model.authorName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
 				@Html.ValidationMessageFor(model => model.authorName, "", new { @class = "text-danger" })
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.branch, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.branch, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.LabelFor(model => model.branch, " Branch", htmlAttributes: new { @class = "control-label col-md-5" })
+			<div class="col-md-7">
+				@Html.EditorFor(model => model.branch, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
 				@Html.ValidationMessageFor(model => model.branch, "", new { @class = "text-danger" })
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.publication, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.publication, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.LabelFor(model => model.publication, "Publications", htmlAttributes: new { @class = "control-label col-md-5" })
+			<div class="col-md-7">
+				@Html.EditorFor(model => model.publication, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
 				@Html.ValidationMessageFor(model => model.publication, "", new { @class = "text-danger" })
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.studentName, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.studentName, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.LabelFor(model => model.studentName, "Student Name", htmlAttributes: new { @class = "control-label col-md-5" })
+			<div class="col-md-7">
+				@Html.EditorFor(model => model.studentName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
 				@Html.ValidationMessageFor(model => model.studentName, "", new { @class = "text-danger" })
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.studentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.studentEmail, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.LabelFor(model => model.studentEmail, "Email", htmlAttributes: new { @class = "control-label col-md-5" })
+			<div class="col-md-7">
+				@Html.EditorFor(model => model.studentEmail, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
 				@Html.ValidationMessageFor(model => model.studentEmail, "", new { @class = "text-danger" })
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.fromDate, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.fromDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-				@Html.ValidationMessageFor(model => model.fromDate, "", new { @class = "text-danger" })
+			@Html.LabelFor(model => model.fromDate, "From Date", htmlAttributes: new { @class = "control-label col-md-5" })
+			<div class="col-md-7">
+				@Html.EditorFor(model => model.displayFromDate, new { htmlAttributes = new { @class = "form-control datepicker" } })				
+				@Html.ValidationMessageFor(model => model.displayFromDate, "", new { @class = "text-danger" })
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.toDate, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.toDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-				@Html.ValidationMessageFor(model => model.toDate, "", new { @class = "text-danger" })
+			@Html.LabelFor(model => model.toDate, "To Date", htmlAttributes: new { @class = "control-label col-md-5" })
+			<div class="col-md-7">
+				@Html.EditorFor(model => model.displayToDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+				@Html.ValidationMessageFor(model => model.displayToDate, "", new { @class = "text-danger" })
 			</div>
 		</div>
 
 		<div class="form-group">
-			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Save" class="btn btn-default" />
+			<div class="col-md-offset-6 col-md-7">
+				<input type="submit" value="Save" class="btn btn-primary" />
 			</div>
 		</div>
 	</div>
 }
-
 <div>
-	@Html.ActionLink("Back to List", "Index")
+	<button class="btn btn-primary">@Html.ActionLink("Back to List", "Index", new { @style = "color:#FFFFFF;" })</button>
+	<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 </div>
-
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")
+<script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"
+		type="text/javascript">
+</script>
+	
+	@*<script type="text/javascript">
+			$(document).ready(function () {
+				$(".dateClass").datetimepicker({
+					dateFormat: 'dd-mm-yy', timeFormat: 'hh:mm:ss'
+				});
+			});
+		</script>*@
+	<script type="text/javascript">
+		$(function () {
+			$('#displayToDate').datepicker({
+				viewMode: 'years'
+			});
+			$('#displayFromDate').datepicker({
+				viewMode: 'years'
+			});
+		});
+	</script>
 }
 
- 
