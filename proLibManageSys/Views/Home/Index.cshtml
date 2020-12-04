@@ -18,3 +18,40 @@
 	<img src="https://media.architecturaldigest.com/photos/55e762d8302ba71f30163466/master/w_1600%2Cc_limit/dam-images-decor-libraries-library-03-simon-jacobsen.jpg" />	
 </div>
 
+<center>
+<div id="showWeather">
+	<h2>Weather Details</h2>
+	<button id="btn-weather">Get Weather</button>
+	<div>
+		<p id="name"> </p>
+		<p id="main"></p>
+		<p id="temp"> </p>
+		<p id="humidity"></p>
+		<p id="pressure"> </p>
+		<p id="speed"></p>
+
+	</div>
+
+	<p></p>
+	<p></p>
+</div>
+</center>
+
+<script>
+	$(document).ready(function () {
+		$("#btn-weather").click(function () {
+
+			$.get('https://api.openweathermap.org/data/2.5/weather?q=Chennai&appid=f6a6648576467ea18320d165880ab133',function(response) {
+				console.log(response);
+				$('#name').text("Weather in "+ response.name);
+				$("#main").text(response.weather[0].main);
+				var temp = response.main.temp - 273.15;				
+				$('#temp').text("Temperature : " + temp + " °C");
+				$('#humidity').text("Humidity : "+response.main.humidity + " % ");
+				$('#pressure').text(" Pressure : "+response.main.pressure + " hPa ");				
+				$("#speed").text("Wind " + response.wind.speed + " m/s speed ");
+			});
+		});
+	});
+	
+</script>

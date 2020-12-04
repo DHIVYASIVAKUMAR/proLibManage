@@ -3,11 +3,6 @@
 	ViewBag.Title = "Index";
 }
 
-<center><h2>List of Students</h2></center>
-<div>
-	<button class="btn btn-primary">@Html.ActionLink("Create New", "Create")</button>
-</div>
-
 @*<link rel=" //cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">*@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -54,7 +49,31 @@
 	a, a:hover {
 		color: white;
 	}
+
+	.button-group {
+		width: 118px;
+		height: 34px;
+	}
+	.page-title {
+		/*background: purple;*/
+		overflow: hidden;
+	}
+	div h2 {
+		text-align: center;
+		display: inline-block;
+		width: 100%;
+		margin-right: -50%;
+	}
+	.titile-button {
+		float: right;
+		margin-left:450px !important;
+	}
 </style>
+
+<div class="page-title">
+	<h2>List of Students</h2>
+	<button class="btn btn-primary title-button" style="margin-left:450px">@Html.ActionLink("Create New", "Create")</button>
+</div>
 
 <div class="modal fade" id="successModal">
 	<div class="modal-dialog">
@@ -110,64 +129,86 @@
 			<th>
 				@Html.DisplayNameFor(model => model.city)
 			</th>
-			<th>Edit</th>	
-			<th>Details</th>
-			<th>Delete</th>
+			<th>Actions</th>
+			@*<th>Edit</th>
+				<th>Details</th>
+				<th>Delete</th>*@
 		</tr>
 	</thead>
 	<tbody>
 		@foreach (var item in Model)
 		{
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.studentName)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.studentBranch)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.gender)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.phoneNumber)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.address)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.city)
-			</td>
-			<td>
-				<div class="btn-group">
-					<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="location.href='@Url.Action("Edit", "Students",new { id = item.studentId })'">
-						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-							<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-						</svg>
-					</button>
-				</div>
-			</td>
-			<td>
-				<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="location.href='@Url.Action("Details", "Students",new { id = item.studentId })'">
-	                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-	                	<path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-	                </svg>
-                 </button>
-			</td>			
-			<td>
-				<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="Confirm(@item.studentId)">
-					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-						<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-					</svg>
-				</button>
-			</td>
-			@*<td>
-			@Html.ActionLink("Edit", "Edit", new { id = item.studentId }) |
-			@Html.ActionLink("Details", "Details", new { id = item.studentId })
-			<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.studentId)">Delete</a>
-		</td>*@
-		</tr>
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.studentName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.studentBranch)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.gender)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.phoneNumber)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.address)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.city)
+				</td>
+				<td>
+					<div class="btn-group button-group">
+						<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="location.href='@Url.Action("Edit", "Students",new { id = item.studentId })'">
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+								<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+							</svg>
+						</button>
+						<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="location.href='@Url.Action("Details", "Students",new { id = item.studentId })'">
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+							</svg>
+						</button>
+						<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="Confirm(@item.studentId)">
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+								<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+							</svg>
+						</button>
+					</div>
+				</td>
+				@*<td>
+						<div class="btn-group">
+							<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="location.href='@Url.Action("Edit", "Students",new { id = item.studentId })'">
+								<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+								</svg>
+							</button>
+						</div>
+					</td>
+					<td>
+						<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="location.href='@Url.Action("Details", "Students",new { id = item.studentId })'">
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+							</svg>
+						 </button>
+					</td>
+					<td>
+						<button type="button" class="btn btn-outline-primary  wrapper" id="showModal" onclick="Confirm(@item.studentId)">
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+								<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+							</svg>
+						</button>
+					</td>*@
+				@*<td>
+						@Html.ActionLink("Edit", "Edit", new { id = item.studentId }) |
+						@Html.ActionLink("Details", "Details", new { id = item.studentId })
+						<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.studentId)">Delete</a>
+					</td>*@
+			</tr>
 		}
 	</tbody>
 </table>
@@ -183,7 +224,7 @@
 			$('#studentTable thead tr').clone(true).appendTo('#studentTable thead');
 			$('#studentTable thead tr:eq(1) th').each(function (i) {
 				var title = $(this).text();
-				if (title != "Edit" && title != "Details" && title != "Delete") {
+				if (title != "Actions" && i < 6) {
 					$(this).html('<input type="text" class="fas" placeholder="&#xf0b0; filter">');
 					$('input', this).on('keyup change', function () {
 						if (table.column(i).search() !== this.value) {

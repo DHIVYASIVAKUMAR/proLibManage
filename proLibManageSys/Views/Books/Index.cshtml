@@ -2,58 +2,33 @@
 @{
 	ViewBag.Title = "Index";
 }
-
-<center><h2>List of Books</h2></center>
-
-<div>
-	<button class="btn btn-primary">@Html.ActionLink("Create New", "Create")</button>
-</div>
-
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/Books/BookCreate.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.2/css/fixedColumns.bootstrap4.min.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
-
-@*<style type="text/css">
-	thead input {
-		width: 100%;
+<style>
+	.page-title {
+		/*background: purple;*/
+		overflow: hidden;
 	}
 
-	table.dataTable {
-		margin-top: 2em !important;
-		margin-bottom: 2em !important;
-	}
-
-		table.dataTable tbody tr.odd {
-			background-color: lavender !important;
-		}
-
-		table.dataTable tbody tr.even {
-			background-color: white !important;
-		}
-
-	.table th, .table td {
+	div h2 {
 		text-align: center;
+		display: inline-block;
+		width: 100%;
+		margin-right: -50%;
 	}
 
-	#bookTable {
-		width: 100% !important;
-		border: 1px solid black;
+	.titile-button {
+		float: right;
+		margin-left: 450px !important;
 	}
-
-	#bookTable_wrapper {
-		padding-top: 20px;
-	}
-
-	#bookTable_length {
-		padding-bottom: 15px;
-	}
-	a , a:hover {
-		color:white;
-	}
-</style>*@
-
+</style>
+<div class="page-title">
+	<h2>List of Books</h2>
+	<button class="btn btn-primary title-button" style="margin-left:450px">@Html.ActionLink("Create New", "Create")</button>
+</div>
 <div class="modal fade" id="successModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
