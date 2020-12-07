@@ -17,4 +17,4 @@ namespace proLibManageSys.Models
 		[Display(Name = "Branch")]
 		public string studentBranch { get; set; }
 	}
-}  
+}
