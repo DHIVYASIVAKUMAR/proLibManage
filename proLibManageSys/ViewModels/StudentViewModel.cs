@@ -9,6 +9,6 @@ namespace proLibManageSys.ViewModels
 	public class StudentViewModel
 	{
 		public Students students { get; set; }
-		public List<StudentBranch> studentBranches { get; set; }
+		public List<StudentBranchs> studentBranches { get; set; }
 	}
 }

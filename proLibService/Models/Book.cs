@@ -6,7 +6,7 @@ using System.Web;
 
 namespace proLibManageSys.Models
 {
-    public class Books
+	public class Book
     {
         [Key]
         public int bookId { get; set; }

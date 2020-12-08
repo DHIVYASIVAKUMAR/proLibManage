@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace proLibService.Controllers
 {
-	public class HomeController : Controller
+	public class HomesController : Controller
 	{
 		public ActionResult Index()
 		{

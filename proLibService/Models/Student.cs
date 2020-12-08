@@ -6,7 +6,7 @@ using System.Web;
 
 namespace proLibManageSys.Models
 {
-    public class Students
+    public class Student
     {
         [Key]
         public int studentId { get; set; }
@@ -22,7 +22,7 @@ namespace proLibManageSys.Models
 
         [Required(ErrorMessage = "Please select Gender")]
         [Display(Name = "Gender")]
-        public Gender gender { get; set; }
+        public GenderType gender { get; set; }
 
 
         [Required(ErrorMessage = "please enter phone number")]
@@ -52,7 +52,7 @@ namespace proLibManageSys.Models
         public string password { get; set; }
 
     }
-    public enum Gender
+    public enum GenderType
     {
         Female,
         Male,

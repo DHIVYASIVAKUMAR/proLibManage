@@ -7,7 +7,7 @@ using System.Web;
 
 namespace proLibManageSys.Models
 {
-	public class Author
+	public class Authors
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,7 +18,7 @@ namespace proLibManageSys.Models
 		public string authorName { get; set; }
 
 	}
-	public class BookBranch
+	public class BookBranchs
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -29,7 +29,7 @@ namespace proLibManageSys.Models
 		public string branch { get; set; }
 	}
 
-	public class BookPublication
+	public class BookPublications
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]

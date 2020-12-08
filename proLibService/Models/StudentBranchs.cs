@@ -7,7 +7,7 @@ using System.Web;
 
 namespace proLibManageSys.Models
 {
-	public class StudentBranch
+	public class StudentBranchs
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]

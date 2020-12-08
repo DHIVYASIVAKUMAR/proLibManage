@@ -7,18 +7,18 @@ using System.Web;
 
 namespace proLibManageSys.Models
 {
-    public class IssuedBooks
+    public class IssuedBook
     {
         [Key]
         public int issuedId { get; set; }
 
         public int bookId { get; set; }
         [ForeignKey("bookId")]
-        public Books books { get; set; }
+        public Book books { get; set; }
 
         public int studentId { get; set; }
         [ForeignKey("studentId")]
-        public Students students { get; set; }
+        public Student students { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         [Required]

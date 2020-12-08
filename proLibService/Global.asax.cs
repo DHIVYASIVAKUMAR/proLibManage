@@ -6,6 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+//using proLibManageSys.Data;
+using proLibService.Context;
+using Test.Context;
 
 namespace proLibService
 {
@@ -18,6 +21,24 @@ namespace proLibService
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+			System.Data.Entity.Database.SetInitializer(new DatabaseInitializer());
+			//System.Data.Entity.Database.SetInitializer(new DummyData());
 		}
 	}
 }
+/*
+ using System.Web.Http;  
+using Test.Context;  
+   
+namespace Test  
+{  
+    public class WebApiApplication : System.Web.HttpApplication  
+    {  
+        protected void Application_Start()  
+        {  
+            GlobalConfiguration.Configure(WebApiConfig.Register);  
+            System.Data.Entity.Database.SetInitializer(new DatabaseInitializer());  
+        }  
+    }  
+}
+ */

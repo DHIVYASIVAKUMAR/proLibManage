@@ -163,16 +163,26 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Context\DatabaseContext.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Context\DummyData.cs" />
+    <Compile Include="Controllers\HomesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Author.cs" />
-    <Compile Include="Models\Books.cs" />
-    <Compile Include="Models\IssuedBooks.cs" />
+    <Compile Include="Migrations\202012080530467_InitialCreate.cs" />
+    <Compile Include="Migrations\202012080530467_InitialCreate.designer.cs">
+      <DependentUpon>202012080530467_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012080531261_InitialCreate1.cs" />
+    <Compile Include="Migrations\202012080531261_InitialCreate1.designer.cs">
+      <DependentUpon>202012080531261_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Authors.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\IssuedBook.cs" />
     <Compile Include="Models\Student.cs" />
-    <Compile Include="Models\StudentBranch.cs" />
+    <Compile Include="Models\StudentBranchs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -222,7 +232,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Homes\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
@@ -257,6 +267,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\proLibManageSys\proLibManageSys.csproj">
+      <Project>{DFC5C710-333B-4D2D-BB4D-5A8801F16A43}</Project>
+      <Name>proLibManageSys</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202012080530467_InitialCreate.resx">
+      <DependentUpon>202012080530467_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012080531261_InitialCreate1.resx">
+      <DependentUpon>202012080531261_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

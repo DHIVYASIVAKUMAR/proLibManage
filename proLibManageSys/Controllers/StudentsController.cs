@@ -97,7 +97,7 @@ namespace proLibManageSys.Controllers
         [HttpPost]
         public JsonResult AddBranch(string name) 
         {
-            var branchs = new StudentBranch();
+            var branchs = new StudentBranchs();
             branchs.studentBranch = name;
 			db.studentBranches.Add(branchs);
             db.SaveChanges();
