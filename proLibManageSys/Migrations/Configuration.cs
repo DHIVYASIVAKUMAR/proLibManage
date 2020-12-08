@@ -1,4 +1,4 @@
-namespace proLibManageSys.Migrations
+﻿namespace proLibManageSys.Migrations
 {
 	using proLibManageSys.Data;
 	using System;
@@ -18,26 +18,13 @@ namespace proLibManageSys.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
-
             context.book.AddOrUpdate(
                 b => b.bookId,
                 DummyData.GetBooks().ToArray()
                 );
             context.SaveChanges();
-
-            //context.student.AddOrUpdate(
-            //    s => s.studentId,
-            //    DummyData.GetStudentDetails().ToArray()
-            //    );
-            //context.SaveChanges();
-
-            //context.issuedBook.AddOrUpdate(
-            //    i => i.issuedId,
-            //    DummyData.GetIssuedBooks().ToArray()
-            //    );
-            //context.SaveChanges();
         }
     }
 }
