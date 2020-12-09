@@ -96,6 +96,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -198,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServiceAuthorsController.cs" />
     <Compile Include="Controllers\ServiceBooksController.cs" />
+    <Compile Include="Controllers\ServiceBooksMvcController.cs" />
     <Compile Include="Controllers\ServiceIssuedBooksController.cs" />
     <Compile Include="Controllers\ServiceStudentBranchesController.cs" />
     <Compile Include="Controllers\ServiceStudentsController.cs" />
