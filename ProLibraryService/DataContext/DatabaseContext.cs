@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
+
 namespace ProLibraryService.DataContext
 {
 	public class DatabaseContext:DbContext

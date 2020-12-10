@@ -220,6 +220,9 @@
       <DependentUpon>202012081002006_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="ServiceMigrations\Configuration.cs" />
+    <Compile Include="ViewModels\ServiceBooksViewModel.cs" />
+    <Compile Include="ViewModels\ServiceIssuedBookViewModel.cs" />
+    <Compile Include="ViewModels\ServiceStudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
