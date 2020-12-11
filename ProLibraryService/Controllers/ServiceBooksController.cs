@@ -17,13 +17,31 @@ namespace ProLibraryService.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        // GET: api/ServiceBooks       
-        public IQueryable<ServiceBooks> Getbook()
+		// GET: api/ServiceAuthor
+        [HttpGet]
+		public IQueryable<ServiceAuthor> GetAuthor()
+		{
+			return db.author;
+		}
+		//// GET: api/ServiceBranch
+		//public IQueryable<ServiceBookBranch> GetBranch()
+		//{
+		//    return db.bookBranch;
+		//}
+		//// GET: api/ServicePublication
+		//public IQueryable<ServiceBookPublication> GetPublication()
+		//{
+		//    return db.bookPublication;
+		//}       
+		// GET: api/ServiceBooks       
+        [Route("Books/getBooks")]
+		public IQueryable<ServiceBooks> Getbook()
         {
             return db.book;
         }
 
         // GET: api/ServiceBooks/5
+        
         [ResponseType(typeof(ServiceBooks))]
         public IHttpActionResult GetServiceBooks(int id)
         {
