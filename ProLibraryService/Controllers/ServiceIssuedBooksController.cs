@@ -91,14 +91,20 @@ namespace ProLibraryService.Controllers
         public IHttpActionResult DeleteServiceIssuedBooks(int id)
         {
             ServiceIssuedBooks serviceIssuedBooks = db.issuedBook.Find(id);
+            var Book = db.book.FirstOrDefault(b => b.serviceBookId == serviceIssuedBooks.bookId);
             if (serviceIssuedBooks == null)
             {
                 return NotFound();
             }
-
             db.issuedBook.Remove(serviceIssuedBooks);
-            db.SaveChanges();
-
+            db.SaveChanges();           
+            
+            if (Book != null)
+            {
+                Book.serviceIsAvailable = true;
+                db.Entry(Book).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             return Ok(serviceIssuedBooks);
         }
 

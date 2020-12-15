@@ -20,7 +20,7 @@ namespace ProLibraryService
 				routeTemplate: "api/{controller}/{action}/{id}",
 				defaults: new { id = RouteParameter.Optional }
 			);
-			EnableCorsAttribute cors = new EnableCorsAttribute("*","*","*");
+			EnableCorsAttribute cors = new EnableCorsAttribute("*","*","*","*");
 			config.EnableCors(cors);
 			config.Formatters.Remove(config.Formatters.XmlFormatter);
 		}

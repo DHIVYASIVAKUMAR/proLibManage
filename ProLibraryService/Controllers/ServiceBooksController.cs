@@ -18,23 +18,24 @@ namespace ProLibraryService.Controllers
         private DatabaseContext db = new DatabaseContext();
 
 		// GET: api/ServiceAuthor
-        [HttpGet]
-		public IQueryable<ServiceAuthor> GetAuthor()
-		{
-			return db.author;
-		}
-		//// GET: api/ServiceBranch
-		//public IQueryable<ServiceBookBranch> GetBranch()
+		//      [HttpGet]
+		//public IQueryable<ServiceAuthor> GetAuthor()
 		//{
-		//    return db.bookBranch;
+		//	return db.author;
 		//}
-		//// GET: api/ServicePublication
-		//public IQueryable<ServiceBookPublication> GetPublication()
-		//{
-		//    return db.bookPublication;
-		//}       
+		// GET: api/ServiceBranch
+		public IQueryable<ServiceBookBranch> GetBranch()
+		{
+			return db.bookBranch;
+		}
+
+		// GET: api/ServicePublication
+		public IQueryable<ServiceBookPublication> GetPublication()
+		{
+			return db.bookPublication;
+		}
 		// GET: api/ServiceBooks       
-        [Route("Books/getBooks")]
+		//[Route("api/ServiceBooks/getBooks")]
 		public IQueryable<ServiceBooks> Getbook()
         {
             return db.book;
@@ -102,6 +103,34 @@ namespace ProLibraryService.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = serviceBooks.serviceBookId }, serviceBooks);
+        }
+
+        [ResponseType(typeof(ServiceBookBranch))]
+        public IHttpActionResult PostServiceBranches(ServiceBookBranch serviceBookBranches)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            db.bookBranch.Add(serviceBookBranches);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = serviceBookBranches.serviceBookBranchId }, serviceBookBranches);
+        }
+
+        [ResponseType(typeof(ServiceBookPublication))]
+        public IHttpActionResult PostServicePublications(ServiceBookPublication serviceBookPublication)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.bookPublication.Add(serviceBookPublication);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = serviceBookPublication.serviceBookPublicationId }, serviceBookPublication);
         }
 
         // DELETE: api/ServiceBooks/5
