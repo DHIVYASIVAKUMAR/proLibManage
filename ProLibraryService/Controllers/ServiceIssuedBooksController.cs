@@ -80,8 +80,16 @@ namespace ProLibraryService.Controllers
                 return BadRequest(ModelState);
             }
 
+            var Book = db.book.FirstOrDefault(b => b.serviceBookId == serviceIssuedBooks.bookId);
+            if (Book != null)
+            {
+                Book.serviceIsAvailable = false;
+                db.Entry(Book).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             db.issuedBook.Add(serviceIssuedBooks);
             db.SaveChanges();
+
 
             return CreatedAtRoute("DefaultApi", new { id = serviceIssuedBooks.serviceIssuedId }, serviceIssuedBooks);
         }

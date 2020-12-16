@@ -38,39 +38,16 @@ namespace ProLibraryService.Controllers
 
         // PUT: api/ServiceStudents/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutServiceStudents(int id, ServiceStudents serviceStudents)
+        public IHttpActionResult PutServiceStudents( ServiceStudents serviceStudents)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
-            }
-
-            if (id != serviceStudents.serviceStudentId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(serviceStudents).State = EntityState.Modified;
-
-            try
-            {
+                db.Entry(serviceStudents).State = EntityState.Modified;
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ServiceStudentsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            }        
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
         // POST: api/ServiceStudents
         [ResponseType(typeof(ServiceStudents))]
         public IHttpActionResult PostServiceStudents(ServiceStudents serviceStudents)

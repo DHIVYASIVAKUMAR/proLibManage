@@ -11,7 +11,6 @@ namespace ProLibraryService.DataContext
 	public class DatabaseContext:DbContext
 	{
 		public DatabaseContext() : base("ServiceConnection") { }
-
         public DbSet<ServiceBooks> book { get; set; }
         public DbSet<ServiceStudents> student { get; set; }
         public DbSet<ServiceIssuedBooks> issuedBook { get; set; }

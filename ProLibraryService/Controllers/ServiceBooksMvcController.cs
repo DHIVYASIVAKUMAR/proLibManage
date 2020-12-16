@@ -16,12 +16,6 @@ namespace ProLibraryService.Controllers
     public class ServiceBooksMvcController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
-
-        //// GET: ServiceBooksMvc
-        //public ActionResult Index()
-        //{
-        //    return View(db.book.ToList());
-        //}
         public ActionResult Index()
         {
             List<ServiceBooks> books = SearchBooks("");

@@ -15,14 +15,7 @@ namespace ProLibraryService.Controllers
 {
     public class ServiceBooksController : ApiController
     {
-        private DatabaseContext db = new DatabaseContext();
-
-		// GET: api/ServiceAuthor
-		//      [HttpGet]
-		//public IQueryable<ServiceAuthor> GetAuthor()
-		//{
-		//	return db.author;
-		//}
+        private DatabaseContext db = new DatabaseContext();		
 		// GET: api/ServiceBranch
 		public IQueryable<ServiceBookBranch> GetBranch()
 		{
@@ -57,40 +50,17 @@ namespace ProLibraryService.Controllers
 
         // PUT: api/ServiceBooks/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutServiceBooks(int id, ServiceBooks serviceBooks)
+        public IHttpActionResult PutServiceBooks(ServiceBooks serviceBooks)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
-            }
-
-            if (id != serviceBooks.serviceBookId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(serviceBooks).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ServiceBooksExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                db.Entry(serviceBooks).State = EntityState.Modified;
+                db.SaveChanges();               
+            }            
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
-        // POST: api/ServiceBooks
+       // POST: api/ServiceBooks
         [ResponseType(typeof(ServiceBooks))]
         public IHttpActionResult PostServiceBooks(ServiceBooks serviceBooks)
         {
