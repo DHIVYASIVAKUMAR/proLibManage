@@ -8,6 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Results;
+using System.Web.Mvc;
 using ProLibraryService.DataContext;
 using ProLibraryService.Models;
 
@@ -27,12 +29,20 @@ namespace ProLibraryService.Controllers
 		{
 			return db.bookPublication;
 		}
-		// GET: api/ServiceBooks       
-		//[Route("api/ServiceBooks/getBooks")]
-		public IQueryable<ServiceBooks> Getbook()
+        // GET: api/ServiceBooks       
+        //[Route("api/ServiceBooks/getBooks")]
+        public IQueryable<ServiceBooks> Getbook()
         {
-            return db.book;
+            return db.book; 
         }
+        public IHttpActionResult Getbooks()
+        {
+			return Json(new { data = db.book });
+        }
+
+       
+
+
 
         // GET: api/ServiceBooks/5
         

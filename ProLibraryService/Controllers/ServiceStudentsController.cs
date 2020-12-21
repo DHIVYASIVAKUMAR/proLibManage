@@ -22,7 +22,7 @@ namespace ProLibraryService.Controllers
         {
             return db.student;
         }
-
+        
         // GET: api/ServiceStudents/5
         [ResponseType(typeof(ServiceStudents))]
         public IHttpActionResult GetServiceStudents(int id)
