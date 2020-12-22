@@ -17,13 +17,13 @@ namespace ProLibraryService.Controllers
     public class ServiceIssuedBooksController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
-
+     List<ServiceBooks> books = new List<ServiceBooks>();
+            List<ServiceStudents> students = new List<ServiceStudents>();
+            List<ServiceIssuedBooks> issuedBooks = new List<ServiceIssuedBooks>();
         // GET: api/ServiceIssuedBooks/GetissuedBook
         public IHttpActionResult GetissuedBook()
         {
-            List<ServiceBooks> books = new List<ServiceBooks>();
-            List<ServiceStudents> students = new List<ServiceStudents>();
-            List<ServiceIssuedBooks> issuedBooks = new List<ServiceIssuedBooks>();
+       
             var issuedBookViewModel = (from i in db.issuedBook
                                        join b in db.book on i.bookId equals b.serviceBookId
                                        join s in db.student on i.studentId equals s.serviceStudentId
@@ -50,6 +50,7 @@ namespace ProLibraryService.Controllers
                 serviceStudentEmail = x.serviceStudentEmail,
                 serviceDisplayFromDate = x.serviceFromDate.ToString("MM/dd/yyyy"),
                 serviceDisplayToDate = x.serviceToDate.ToString("MM/dd/yyyy"),
+                serviceIssuedId = x.serviceIssuedId
             }).ToList();
             return Ok(result);
         }
@@ -57,14 +58,26 @@ namespace ProLibraryService.Controllers
         // GET: api/ServiceIssuedBooks/5
         [ResponseType(typeof(ServiceIssuedBooks))]
         public IHttpActionResult GetServiceIssuedBooks(int id)
-        {
-            ServiceIssuedBooks serviceIssuedBooks = db.issuedBook.Find(id);
-            if (serviceIssuedBooks == null)
-            {
-                return NotFound();
-            }
+        {           
+            var issuedBookViewModel = (from i in db.issuedBook
+                                       where i.serviceIssuedId == id
+                                       join b in db.book on i.bookId equals b.serviceBookId
+                                       join s in db.student on i.studentId equals s.serviceStudentId
+                                       select new ServiceIssuedBookViewModel
+                                       {
+                                           serviceBookId = b.serviceBookId,
+                                           serviceBookName = b.serviceBookName,
+                                           serviceAuthorName = b.serviceAuthorName,
+                                           serviceBranch = b.serviceBranch,
+                                           servicePublication = b.servicePublications,
+                                           serviceStudentName = s.serviceStudentName,
+                                           serviceStudentEmail = s.serviceEmail,
+                                           serviceFromDate = i.serviceFromDate,
+                                           serviceToDate = i.serviceToDate,
+                                           serviceIssuedId = i.serviceIssuedId
+                                       }).ToList();
 
-            return Ok(serviceIssuedBooks);
+            return Ok(issuedBookViewModel.FirstOrDefault());
         }
 
         // PUT: api/ServiceIssuedBooks/5

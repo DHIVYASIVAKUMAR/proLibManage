@@ -37,8 +37,8 @@ namespace ProLibraryService.Controllers
         }
 
         // PUT: api/ServiceStudents/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutServiceStudents( ServiceStudents serviceStudents)
+        [ResponseType(typeof(ServiceStudents))]
+        public IHttpActionResult PostStudents( ServiceStudents serviceStudents)
         {
             if (ModelState.IsValid)
             {
