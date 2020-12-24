@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
-using System.Web.Mvc;
+//using System.Web.Mvc;
 using ProLibraryService.DataContext;
 using ProLibraryService.Models;
 
@@ -17,35 +17,30 @@ namespace ProLibraryService.Controllers
 {
     public class ServiceBooksController : ApiController
     {
-        private DatabaseContext db = new DatabaseContext();		
-		// GET: api/ServiceBranch
-		public IQueryable<ServiceBookBranch> GetBranch()
-		{
-			return db.bookBranch;
-		}
+        private DatabaseContext db = new DatabaseContext();
+        // GET: api/ServiceBranch
+        public IQueryable<ServiceBookBranch> GetBranch()
+        {
+            return db.bookBranch;
+        }
 
-		// GET: api/ServicePublication
-		public IQueryable<ServiceBookPublication> GetPublication()
-		{
-			return db.bookPublication;
-		}
+        // GET: api/ServicePublication
+        public IQueryable<ServiceBookPublication> GetPublication()
+        {
+            return db.bookPublication;
+        }
         // GET: api/ServiceBooks       
         //[Route("api/ServiceBooks/getBooks")]
         public IQueryable<ServiceBooks> Getbook()
         {
-            return db.book; 
+            return db.book;
         }
         public IHttpActionResult Getbooks()
         {
-			return Json(new { data = db.book });
+            return Json(new { data = db.book });
         }
 
-       
-
-
-
-        // GET: api/ServiceBooks/5
-        
+        // GET: api/ServiceBooks/5        
         [ResponseType(typeof(ServiceBooks))]
         public IHttpActionResult GetServiceBooks(int id)
         {
@@ -58,19 +53,41 @@ namespace ProLibraryService.Controllers
             return Ok(serviceBooks);
         }
 
-        // PUT: api/ServiceBooks/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutServiceBooks(ServiceBooks serviceBooks)
+        [HttpPut]
+		[ResponseType(typeof(ServiceBooks))]
+        public IHttpActionResult PutServiceBooks(int id, ServiceBooks serviceBooks)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Not a valid data");
             if (ModelState.IsValid)
             {
-                db.Entry(serviceBooks).State = EntityState.Modified;
-                db.SaveChanges();               
-            }            
+                var existingBook = db.book.Where(b => b.serviceBookId == serviceBooks.serviceBookId).FirstOrDefault<ServiceBooks>();
+                existingBook.serviceBookName = serviceBooks.serviceBookName;
+                existingBook.serviceAuthorName = serviceBooks.serviceAuthorName;
+                existingBook.serviceBranch = serviceBooks.serviceBranch;
+                existingBook.servicePublications = serviceBooks.servicePublications;
+                existingBook.serviceSerialNumber = serviceBooks.serviceSerialNumber;
+                existingBook.serviceIsAvailable = serviceBooks.serviceIsAvailable;
+                db.SaveChanges();
+                return Ok(existingBook);
+            }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-       // POST: api/ServiceBooks
+
+            //// PUT: api/ServiceBooks/5
+            //[ResponseType(typeof(ServiceBooks))]
+            //public IHttpActionResult PutServiceBooks(ServiceBooks serviceBooks)
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        db.Entry(serviceBooks).State = EntityState.Modified;
+            //        db.SaveChanges();               
+            //    }            
+
+            //    return StatusCode(HttpStatusCode.NoContent);
+            //}
+            // POST: api/ServiceBooks
         [ResponseType(typeof(ServiceBooks))]
         public IHttpActionResult PostServiceBooks(ServiceBooks serviceBooks)
         {

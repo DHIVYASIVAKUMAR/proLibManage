@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using ProLibraryService.DataContext;
 using ProLibraryService.Models;
@@ -14,6 +15,7 @@ using ProLibraryService.ViewModels;
 
 namespace ProLibraryService.Controllers
 {
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ServiceIssuedBooksController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
@@ -47,6 +49,7 @@ namespace ProLibraryService.Controllers
                 serviceAuthorName = x.serviceAuthorName,
                 serviceBranch = x.serviceBranch,
                 servicePublication = x.servicePublication,
+                serviceStudentName = x.serviceStudentName,
                 serviceStudentEmail = x.serviceStudentEmail,
                 serviceDisplayFromDate = x.serviceFromDate.ToString("MM/dd/yyyy"),
                 serviceDisplayToDate = x.serviceToDate.ToString("MM/dd/yyyy"),
@@ -78,45 +81,59 @@ namespace ProLibraryService.Controllers
                                        }).ToList();
 
             return Ok(issuedBookViewModel.FirstOrDefault());
-        }
-
-        // PUT: api/ServiceIssuedBooks/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutServiceIssuedBooks(int id, ServiceIssuedBooks serviceIssuedBooks)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != serviceIssuedBooks.serviceIssuedId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(serviceIssuedBooks).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ServiceIssuedBooksExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/ServiceIssuedBooks
+		}
+		[HttpPut]
+        //[Route("api/ServiceIssuedBooks/PutServiceIssuedBooks/{id}")]
+        
         [ResponseType(typeof(ServiceIssuedBooks))]
+		//public IHttpActionResult PutServiceIssuedBooks(int id)
+            public IHttpActionResult PutServiceIssuedBooks(int id, DateTime fromDate, DateTime toDate)
+        {	
+				var existingIssuedBook = db.issuedBook.Where(i => i.serviceIssuedId == id).FirstOrDefault<ServiceIssuedBooks>();
+				existingIssuedBook.serviceFromDate = Convert.ToDateTime(fromDate);
+				existingIssuedBook.serviceToDate = Convert.ToDateTime(toDate);
+				db.SaveChanges();
+				return Ok(existingIssuedBook);			
+		}
+
+		// PUT: api/ServiceIssuedBooks/5
+
+		//[ResponseType(typeof(void))]
+		//public IHttpActionResult PutServiceIssuedBooks(int id, ServiceIssuedBooks serviceIssuedBooks)
+		//{
+		//	if (!ModelState.IsValid)
+		//	{
+		//		return BadRequest(ModelState);
+		//	}
+
+		//	if (id != serviceIssuedBooks.serviceIssuedId)
+		//	{
+		//		return BadRequest();
+		//	}
+
+		//	db.Entry(serviceIssuedBooks).State = EntityState.Modified;
+
+		//	try
+		//	{
+		//		db.SaveChanges();
+		//	}
+		//	catch (DbUpdateConcurrencyException)
+		//	{
+		//		if (!ServiceIssuedBooksExists(id))
+		//		{
+		//			return NotFound();
+		//		}
+		//		else
+		//		{
+		//			throw;
+		//		}
+		//	}
+
+		//	return StatusCode(HttpStatusCode.NoContent);
+		//}
+
+		// POST: api/ServiceIssuedBooks
+		[ResponseType(typeof(ServiceIssuedBooks))]
         public IHttpActionResult PostServiceIssuedBooks(ServiceIssuedBooks serviceIssuedBooks)
         {
             if (!ModelState.IsValid)

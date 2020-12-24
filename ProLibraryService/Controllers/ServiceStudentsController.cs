@@ -36,18 +36,46 @@ namespace ProLibraryService.Controllers
             return Ok(serviceStudents);
         }
 
-        // PUT: api/ServiceStudents/5
+        [HttpPut]
         [ResponseType(typeof(ServiceStudents))]
-        public IHttpActionResult PostStudents( ServiceStudents serviceStudents)
+        public IHttpActionResult PutServiceStudents(int id, ServiceStudents serviceStudents)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Not a valid data");
             if (ModelState.IsValid)
             {
-                db.Entry(serviceStudents).State = EntityState.Modified;
+                var existingStud = db.student.Where(s => s.serviceStudentId == serviceStudents.serviceStudentId).FirstOrDefault<ServiceStudents>();
+                existingStud.serviceStudentName = serviceStudents.serviceStudentName;
+                existingStud.serviceStudentBranch = serviceStudents.serviceStudentBranch;
+                existingStud.servicePhoneNumber = serviceStudents.servicePhoneNumber;
+                existingStud.serviceEmail = serviceStudents.serviceEmail;
+                existingStud.serviceCity = serviceStudents.serviceCity;
+                existingStud.serviceAddress = serviceStudents.serviceAddress;
+                existingStud.serviceGender = serviceStudents.serviceGender;
+                existingStud.servicePassword = serviceStudents.servicePassword;
+                //db.Entry(serviceStudents).State = EntityState.Modified;
                 db.SaveChanges();
-            }        
+                return Ok(existingStud);
+            }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        //}
+
+
+
+        //// PUT: api/ServiceStudents/5
+        //[ResponseType(typeof(ServiceStudents))]
+        //public IHttpActionResult PostStudents( ServiceStudents serviceStudents)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(serviceStudents).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //    }        
+
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
         // POST: api/ServiceStudents
         [ResponseType(typeof(ServiceStudents))]
         public IHttpActionResult PostServiceStudents(ServiceStudents serviceStudents)

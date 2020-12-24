@@ -11,7 +11,7 @@ namespace ProLibraryService
 		public static void Register(HttpConfiguration config)
 		{
 			// Web API configuration and services
-
+			
 			// Web API routes
 			config.MapHttpAttributeRoutes();
 
@@ -20,9 +20,10 @@ namespace ProLibraryService
 				routeTemplate: "api/{controller}/{action}/{id}",
 				defaults: new { id = RouteParameter.Optional }
 			);
-			EnableCorsAttribute cors = new EnableCorsAttribute("*","*","*","*");
+			EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*", "*");
 			config.EnableCors(cors);
-			config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+		//	config.Formatters.Remove(config.Formatters.XmlFormatter);
 		}
 	}
 }
